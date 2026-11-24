@@ -1,0 +1,2089 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>A Seat to Study — LPU Campus Study Space Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Poppins', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Poppins', 'system-ui', 'sans-serif']
+      },
+      colors: {
+        navy: {
+          950: '#090D16',
+          900: '#12193F',
+          800: '#1B2459',
+          700: '#253175',
+          100: '#E8EBF7',
+          50: '#F8FAFC'
+        },
+        tealbrand: {
+          700: '#0B7A8B',
+          600: '#0E8F9F',
+          500: '#13A3B5',
+          400: '#14A8B8',
+          100: '#D7F7F5',
+          50: '#EFFCFC'
+        }
+      }
+    }
+  }
+};
+</script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
+    background-color: #F8FAFC;
+    color: #1B2459;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+  }
+  button, a, select, input {
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.22s ease,
+                box-shadow 0.24s ease,
+                border-color 0.22s ease,
+                color 0.2s ease,
+                opacity 0.2s ease;
+  }
+  button:not(:disabled):active {
+    transform: translateY(0) scale(0.97) !important;
+  }
+  .hero-gradient {
+    background: linear-gradient(135deg, #FFFDF5 0%, #F4FCF9 48%, #E3FBF8 100%);
+  }
+  .teal-section-gradient {
+    background: linear-gradient(135deg, #0B7A8B 0%, #0E8F9F 52%, #13A3B5 100%);
+  }
+  .frosted-bar {
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .glass-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.94) 100%);
+    border: 1px solid rgba(226, 232, 240, 0.92);
+    border-radius: 18px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88), 0 8px 26px rgba(27, 36, 89, 0.06);
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s ease, border-color 0.22s ease;
+  }
+  .glass-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 14px 32px rgba(27, 36, 89, 0.1);
+    border-color: rgba(19, 163, 181, 0.45);
+  }
+  .kpi-satin {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 6px 20px rgba(27, 36, 89, 0.05);
+  }
+  .btn-navy {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #27357C 0%, #1B2459 100%);
+    color: #FFFFFF;
+    border: 1px solid rgba(27, 36, 89, 0.95);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 4px 14px rgba(27, 36, 89, 0.18);
+  }
+  .btn-navy::after, .btn-teal::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -130%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(110deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.24) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-20deg);
+    transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .btn-navy:hover:not(:disabled)::after, .btn-teal:hover:not(:disabled)::after {
+    left: 145%;
+  }
+  .btn-navy:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 10px 24px rgba(27, 36, 89, 0.26);
+  }
+  .btn-teal {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #16B4C7 0%, #0E8F9F 100%);
+    color: #FFFFFF;
+    border: 1px solid rgba(14, 143, 159, 0.9);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 14px rgba(14, 143, 159, 0.22);
+  }
+  .btn-teal:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 10px 24px rgba(14, 143, 159, 0.32);
+  }
+  .btn-soft {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+    color: #1B2459;
+    border: 1px solid #CBD5E1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 8px rgba(27, 36, 89, 0.05);
+  }
+  .btn-soft:hover:not(:disabled) {
+    transform: translateY(-2px);
+    border-color: #13A3B5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 6px 16px rgba(19, 163, 181, 0.14);
+  }
+  .btn-chip {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    border: 1px solid #CBD5E1;
+    color: #334155;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+  }
+  .btn-chip:hover {
+    transform: translateY(-1px);
+    border-color: #13A3B5;
+    color: #1B2459;
+  }
+  .btn-chip.active {
+    background: linear-gradient(180deg, #27357C 0%, #1B2459 100%);
+    border-color: #1B2459;
+    color: #FFFFFF;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.26), 0 4px 12px rgba(27, 36, 89, 0.2);
+  }
+  .sidebar-satin {
+    background: linear-gradient(180deg, #161F4D 0%, #12193F 60%, #0D1330 100%);
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.06);
+  }
+  .nav-pill:hover {
+    transform: translateX(3px);
+  }
+  .view-enter {
+    animation: viewEnter 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes viewEnter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes chairPop {
+    0% { transform: scale(0.94); }
+    55% { transform: scale(1.09); }
+    100% { transform: scale(1.04); }
+  }
+  .chair-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 5px;
+    border-radius: 13px;
+    border: 1.5px solid #E2E8F0;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 6px rgba(15, 23, 42, 0.04);
+    user-select: none;
+  }
+  .chair-tile.vacant {
+    color: #16A34A;
+    border-color: #BBF7D0;
+    background: linear-gradient(180deg, #F0FDF4 0%, #DCFCE7 100%);
+    cursor: pointer;
+  }
+  .chair-tile.vacant:hover {
+    transform: scale(1.08) translateY(-2px);
+    border-color: #16A34A;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 8px 18px rgba(22, 163, 74, 0.24);
+  }
+  .chair-tile.booked {
+    color: #DC2626;
+    border-color: #FECACA;
+    background: linear-gradient(180deg, #FEF2F2 0%, #FEE2E2 100%);
+    opacity: 0.88;
+    cursor: not-allowed;
+  }
+  .chair-tile.expiring {
+    color: #D97706;
+    border-color: #FDE68A;
+    background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+    cursor: not-allowed;
+  }
+  .chair-tile.selected {
+    color: #FFFFFF;
+    border-color: #2563EB;
+    background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.34), 0 0 0 3px rgba(37, 99, 235, 0.26), 0 8px 20px rgba(37, 99, 235, 0.3);
+    animation: chairPop 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    cursor: pointer;
+  }
+  .chair-tile.mine {
+    color: #0E8F9F;
+    border-color: #13A3B5;
+    background: linear-gradient(180deg, #EFFCFC 0%, #D7F7F5 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 0 0 2px rgba(19, 163, 181, 0.26);
+    cursor: default;
+  }
+  .floor-btn:hover {
+    transform: translateX(4px) translateY(-1px);
+    border-color: #13A3B5;
+    box-shadow: 0 8px 20px rgba(14, 143, 159, 0.14);
+  }
+  .switch-track {
+    width: 44px;
+    height: 24px;
+    border-radius: 999px;
+    position: relative;
+    transition: background-color 0.24s ease, box-shadow 0.24s ease;
+  }
+  .switch-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.22);
+    transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .switch-track.on .switch-thumb {
+    transform: translateX(20px);
+  }
+  .modal-backdrop {
+    background: rgba(9, 13, 22, 0.56);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+<div id="toast-container" class="fixed top-20 right-4 z-50 flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
+<div id="modal-root"></div>
+<div id="app-shell" class="flex-1 flex flex-col"></div>
+
+<script>
+const TODAY = new Date();
+const addDays = (n) => {
+  const d = new Date(TODAY);
+  d.setDate(d.getDate() + n);
+  return d;
+};
+const fmtDate = (d) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+const fmtShortDate = (d) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+const fmtTimeNow = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+const PROFILES = {
+  student: {
+    role: 'student',
+    roleLabel: 'LPU Student',
+    name: 'Demo Student',
+    initials: 'DS',
+    idNumber: '12214580',
+    department: 'B.Tech Computer Science & Engineering',
+    meta: 'Semester 6 • Hostel BH-4',
+    email: 'student.12214580@lpu.in',
+    defaultMode: 'solo',
+    defaultBuilding: 'cl',
+    defaultNoise: 'Silent'
+  },
+  faculty: {
+    role: 'faculty',
+    roleLabel: 'Faculty / Teacher',
+    name: 'Dr. Ananya Sharma',
+    initials: 'AS',
+    idNumber: 'EMP-28419',
+    department: 'School of Computer Science & Engineering',
+    meta: 'Associate Professor • Cabin 34-408',
+    email: 'ananya.28419@lpu.co.in',
+    defaultMode: 'solo',
+    defaultBuilding: 'st',
+    defaultNoise: 'Silent'
+  }
+};
+
+const BUILDINGS = [
+  { id: 'cl', name: 'Central Library', block: 'Block 37', floors: [1, 2, 3], hours: '08:00 AM – 10:00 PM', desc: 'Main multi-floor reading halls, silent carrels, and glass group discussion rooms.' },
+  { id: 'ab', name: 'Academic Block Lounge', block: 'Block 34', floors: [1, 2], hours: '08:00 AM – 08:00 PM', desc: 'Casual study pods and open tables located between core lecture halls.' },
+  { id: 'ih', name: 'Innovation Hub', block: 'Block 38', floors: [1, 2], hours: '09:00 AM – 09:00 PM', desc: 'Design thinking project pods, maker desks, and team collaboration rooms.' },
+  { id: 'st', name: 'Science & Tech Digital Wing', block: 'Block 55', floors: [1, 2, 3], hours: '08:30 AM – 10:00 PM', desc: 'High-speed workstation desks, digital journal terminals, and faculty seminar suites.' }
+];
+
+const RAW_SPACES = [
+  ['sp1', 'cl', 1, 'Reading Hall A', 'solo', 'both', 16, 10, 'Silent', ['High-Speed Wi-Fi', 'Power Sockets', 'AC', 'Lockers', 'Desk Lamp'], 'Long oak tables with individual reading lamps designed for steady exam preparation.'],
+  ['sp2', 'cl', 1, 'Group Discussion Rooms', 'group', 'both', 12, 7, 'Discussion', ['High-Speed Wi-Fi', 'Whiteboard', 'AC', '4K Screen', 'Power Sockets'], 'Glass-walled rooms where teams of 2 to 8 can brainstorm and practice presentations.'],
+  ['sp3', 'cl', 2, 'Silent Study Carrels', 'solo', 'both', 16, 6, 'Silent', ['Power Sockets', 'AC', 'Desk Lamp', 'Lockers', 'High-Speed Wi-Fi'], 'Partitioned private booths crafted for deep focus and research writing.'],
+  ['sp4', 'cl', 2, 'Faculty Research Carrels', 'solo', 'faculty', 8, 5, 'Silent', ['High-Speed Wi-Fi', 'Power Sockets', 'AC', 'Desk Lamp', 'Lockers'], 'Reserved quiet research carrels for LPU faculty grading, publishing, and journal study.'],
+  ['sp5', 'cl', 3, 'Collaboration Zone', 'group', 'both', 16, 11, 'Discussion', ['High-Speed Wi-Fi', 'Whiteboard', 'AC', '4K Screen'], 'Modular team tables with writable walls and wireless casting screens.'],
+  ['sp6', 'cl', 3, 'Skyline Reading Deck', 'solo', 'both', 12, 4, 'Quiet', ['High-Speed Wi-Fi', 'Natural Light', 'Power Sockets', 'AC'], 'Sunlit top-floor reading deck overlooking the campus with ergonomic seating.'],
+
+  ['sp7', 'ab', 1, 'Lounge Study Pods', 'solo', 'both', 12, 8, 'Quiet', ['Power Sockets', 'High-Speed Wi-Fi', 'Natural Light'], 'Acoustic cushioned solo pods ideal for quick study breaks between classes.'],
+  ['sp8', 'ab', 1, 'Open Group Tables', 'group', 'both', 16, 10, 'Discussion', ['High-Speed Wi-Fi', 'Power Sockets', 'Whiteboard', 'AC'], 'Spacious group tables for peer assignment reviews and quick discussions.'],
+  ['sp9', 'ab', 2, 'Quiet Corridor Desks', 'solo', 'both', 12, 4, 'Silent', ['Power Sockets', 'AC', 'High-Speed Wi-Fi'], 'Window-facing individual desks along the quiet upper gallery.'],
+  ['sp10', 'ab', 2, 'Project & Seminar Room', 'group', 'both', 12, 7, 'Discussion', ['4K Screen', 'Whiteboard', 'AC', 'High-Speed Wi-Fi'], 'Enclosed seminar room suited for project mentoring and viva preparation.'],
+
+  ['sp11', 'ih', 1, 'Maker & Coding Desks', 'solo', 'both', 16, 10, 'Quiet', ['High-Speed Wi-Fi', 'Power Sockets', 'AC', 'Desk Lamp'], 'Wide workbenches with surge-protected outlets next to the prototyping labs.'],
+  ['sp12', 'ih', 1, 'Faculty Innovation Bay', 'solo', 'faculty', 8, 6, 'Silent', ['High-Speed Wi-Fi', 'Power Sockets', 'AC', 'Natural Light'], 'Dedicated workspace for faculty mentors and Design Thinking coordinators.'],
+  ['sp13', 'ih', 2, 'Capstone Team Pods', 'group', 'both', 16, 10, 'Discussion', ['4K Screen', 'Whiteboard', 'High-Speed Wi-Fi', 'AC', 'Power Sockets'], 'Collaborative war-rooms tailored for hackathon teams and INT335 projects.'],
+
+  ['sp14', 'st', 1, 'Digital Research Terminals', 'solo', 'both', 16, 11, 'Silent', ['High-Speed Wi-Fi', 'Power Sockets', 'AC', 'Desk Lamp'], 'Workstations configured for digital libraries, IEEE journals, and analytics.'],
+  ['sp15', 'st', 1, 'Data Science Collab Bay', 'group', 'both', 12, 7, 'Discussion', ['4K Screen', 'Whiteboard', 'High-Speed Wi-Fi', 'AC'], 'Cluster tables for coding reviews and collaborative lab assignments.'],
+  ['sp16', 'st', 2, 'E-Library Quiet Zone', 'solo', 'both', 16, 11, 'Silent', ['High-Speed Wi-Fi', 'Power Sockets', 'AC', 'Desk Lamp'], 'Ultra-quiet digital reading hall with ergonomic chairs and USB-C outlets.'],
+  ['sp17', 'st', 2, 'Faculty Seminar Suite', 'group', 'faculty', 12, 8, 'Discussion', ['4K Screen', 'Whiteboard', 'AC', 'High-Speed Wi-Fi'], 'Private seminar suite for faculty meetings, thesis reviews, and research groups.'],
+  ['sp18', 'st', 3, 'Focus Loft Carrels', 'solo', 'both', 12, 4, 'Silent', ['Power Sockets', 'AC', 'Desk Lamp', 'Lockers'], 'High-privacy individual booths on the quiet third-floor loft.'],
+  ['sp19', 'st', 3, 'AI & Robotics Project Pods', 'group', 'both', 12, 8, 'Discussion', ['4K Screen', 'Whiteboard', 'AC', 'High-Speed Wi-Fi'], 'Enclosed top-floor team pods for technical demos and peer tutoring.']
+];
+
+const SPACES = RAW_SPACES.map((row, idx) => {
+  const [id, bld, floor, name, type, audience, total, free, noise, facilities, desc] = row;
+  const zone = String.fromCharCode(65 + (idx % 12));
+  const chairs = Array.from({ length: total }, (_, i) => {
+    const hash = (i * 7 + idx * 5) % total;
+    let status = hash < free ? 'vacant' : 'booked';
+    if (status === 'booked' && i % 7 === 0) status = 'expiring';
+    const num = String(i + 1).padStart(2, '0');
+    return { id: `${id}-c${i + 1}`, code: `${zone}-${num}`, status };
+  });
+  return { id, bld, floor, name, type, audience, total, noise, facilities, desc, chairs };
+});
+
+const INITIAL_BOOKS = [
+  { id: 'bk1', title: 'Introduction to Algorithms (CLRS)', author: 'Cormen, Leiserson, Rivest, Stein', callNo: 'QA76.6 .C662', issuedOffset: -18, dueOffset: -4, finePaid: false },
+  { id: 'bk2', title: 'Design Thinking for Innovation', author: 'Idris Mootee', callNo: 'HD53 .M66', issuedOffset: -12, dueOffset: 2, finePaid: false },
+  { id: 'bk3', title: 'Database System Concepts', author: 'Silberschatz, Korth, Sudarshan', callNo: 'QA76.9 .D3', issuedOffset: -5, dueOffset: 9, finePaid: false },
+  { id: 'bk4', title: 'Computer Networks (Tanenbaum)', author: 'Andrew S. Tanenbaum', callNo: 'TK5105.5 .T36', issuedOffset: -16, dueOffset: -2, finePaid: false },
+  { id: 'bk5', title: 'Artificial Intelligence: A Modern Approach', author: 'Stuart Russell & Peter Norvig', callNo: 'Q335 .R86', issuedOffset: -11, dueOffset: 3, finePaid: false }
+];
+
+const TIME_SLOTS = [
+  'Morning (8:00 AM – 11:00 AM)',
+  'Midday (11:00 AM – 2:00 PM)',
+  'Afternoon (2:00 PM – 5:00 PM)',
+  'Evening (5:00 PM – 8:00 PM)',
+  'Late Study (8:00 PM – 10:00 PM)'
+];
+
+const FAQS = [
+  { q: 'How do I check vacant chairs on a specific building floor?', a: 'Pick any of the 4 LPU buildings in Step 3 and tap a floor in the stacked elevation. You will enter that floor interior and see green vacant chairs, red booked chairs, and amber reserved seats.' },
+  { q: 'How are library fines and due reminders calculated?', a: 'Overdue books accrue a sample demo fine of ₹5 per day. You can pay demo fines via UPI, Campus Wallet, or Card inside Books & Reminders, renew eligible books by +7 days, and manage automated alerts.' },
+  { q: 'Can both LPU Students and Faculty use this portal?', a: 'Yes! Use the Student / Faculty role switcher in the top header or profile page. Faculty mode unlocks dedicated Faculty Research Carrels and Seminar Suites in addition to general halls.' },
+  { q: 'Is the occupancy and book data live?', a: 'All seat counts, issued books, fines, and timestamps are clearly labeled Demo Data built specifically for our INT335 Design Thinking CP5 usability testing.' }
+];
+
+const CP5_TASKS = [
+  { id: 't1', text: 'Find a silent solo seat in Central Library (Block 37), select a vacant green chair, and confirm your digital pass.' },
+  { id: 't2', text: 'Book a group study space for 4 people in Innovation Hub (Block 38) for an afternoon time slot.' },
+  { id: 't3', text: 'Open Books & Reminders, inspect overdue books, pay a demo fine, and renew an eligible book by +7 days.' },
+  { id: 't4', text: 'Switch to Faculty role, inspect Science & Tech Digital Wing (Block 55), and check the Digital ID Profile.' }
+];
+
+const STATE = {
+  screen: 'home',
+  role: 'student',
+  mode: 'solo',
+  noise: 'Any',
+  groupSize: 4,
+  buildingId: 'cl',
+  floor: 1,
+  floorFilter: 'all',
+  activeSpaceId: 'sp1',
+  selectedChair: null,
+  timeSlot: TIME_SLOTS[2],
+  lastRefreshed: fmtTimeNow(),
+  openFaq: 0,
+  bookings: [],
+  lastPass: null,
+  books: INITIAL_BOOKS.map(b => ({ ...b })),
+  customReminders: [
+    { id: 'rem-init-1', title: 'Bring LPU ID card for Reading Hall A locker key', category: 'Study Session', when: fmtShortDate(TODAY) + ', 02:00 PM', done: false }
+  ],
+  dismissedAutoIds: [],
+  channels: { whatsapp: true, email: true, push: false },
+  selectedCalDay: TODAY.getDate(),
+  paymentModalBookId: null,
+  paymentMethod: 'UPI',
+  completedTasks: [],
+  searchQuery: ''
+};
+
+const getProfile = () => PROFILES[STATE.role];
+const getBuilding = (id) => BUILDINGS.find(b => b.id === id) || BUILDINGS[0];
+const getSpace = (id) => SPACES.find(s => s.id === id) || SPACES[0];
+const accessibleSpaces = (list) => list.filter(s => STATE.role === 'faculty' || s.audience === 'both');
+const countVacant = (sp) => sp.chairs.filter(c => c.status === 'vacant').length;
+const countBooked = (sp) => sp.chairs.filter(c => c.status !== 'vacant').length;
+const sumBy = (arr, fn) => arr.reduce((acc, item) => acc + fn(item), 0);
+
+function spaceMatchesPreference(sp) {
+  if (STATE.mode === 'solo') {
+    if (sp.type !== 'solo') return false;
+    return STATE.noise === 'Any' || sp.noise === STATE.noise;
+  }
+  return sp.type === 'group' && countVacant(sp) >= Math.min(STATE.groupSize, sp.total);
+}
+
+function getBookFine(book) {
+  if (book.finePaid || book.dueOffset >= 0) return 0;
+  return Math.abs(book.dueOffset) * 5;
+}
+
+function getBookStatus(book) {
+  if (book.dueOffset < 0 && !book.finePaid) return { label: 'Overdue', key: 'overdue', cls: 'bg-rose-50 text-rose-700 border-rose-200' };
+  if (book.dueOffset < 0 && book.finePaid) return { label: 'Fine Paid', key: 'paid', cls: 'bg-tealbrand-50 text-tealbrand-700 border-tealbrand-200' };
+  if (book.dueOffset <= 3) return { label: 'Due Soon', key: 'soon', cls: 'bg-amber-50 text-amber-700 border-amber-200' };
+  return { label: 'On Time', key: 'ok', cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+}
+
+function getAllReminders() {
+  const auto = [];
+  STATE.books.forEach(b => {
+    const fine = getBookFine(b);
+    if (b.dueOffset < 0 && !b.finePaid) {
+      const id = `auto-ov-${b.id}`;
+      if (!STATE.dismissedAutoIds.includes(id)) {
+        auto.push({ id, auto: true, urgent: 'overdue', category: 'Fine Payment', title: `${b.title} is overdue by ${Math.abs(b.dueOffset)} days (Fine ₹${fine})`, when: `Due ${fmtShortDate(addDays(b.dueOffset))}` });
+      }
+    } else if (b.dueOffset >= 0 && b.dueOffset <= 3) {
+      const id = `auto-soon-${b.id}`;
+      if (!STATE.dismissedAutoIds.includes(id)) {
+        auto.push({ id, auto: true, urgent: 'soon', category: 'Book Due', title: `${b.title} is due in ${b.dueOffset === 0 ? 'today' : b.dueOffset + ' days'}`, when: `Due ${fmtShortDate(addDays(b.dueOffset))}` });
+      }
+    }
+  });
+  STATE.bookings.forEach(bk => {
+    const id = `auto-bk-${bk.bookingId}`;
+    if (!STATE.dismissedAutoIds.includes(id)) {
+      auto.push({ id, auto: true, urgent: 'booking', category: 'Study Session', title: `Seat ${bk.chairCode} reserved at ${bk.spaceName} (${bk.buildingName}, F${bk.floor})`, when: bk.slot });
+    }
+  });
+  const custom = STATE.customReminders.filter(r => !r.done).map(r => ({ ...r, auto: false, urgent: 'custom' }));
+  return [...auto, ...custom];
+}
+
+function getUrgentBadgeCount() {
+  const overdueBooks = STATE.books.filter(b => b.dueOffset < 0 && !b.finePaid).length;
+  const dueSoonBooks = STATE.books.filter(b => b.dueOffset >= 0 && b.dueOffset <= 3).length;
+  return overdueBooks + dueSoonBooks;
+}
+
+function showToast(title, subtitle = '', tone = 'teal') {
+  const container = document.getElementById('toast-container');
+  const styles = {
+    teal: 'border-tealbrand-500 bg-white/95 text-navy-800',
+    green: 'border-emerald-500 bg-emerald-50/95 text-emerald-950',
+    amber: 'border-amber-500 bg-amber-50/95 text-amber-950',
+    rose: 'border-rose-500 bg-rose-50/95 text-rose-950'
+  };
+  const el = document.createElement('div');
+  el.className = `pointer-events-auto border-l-4 rounded-xl px-4 py-3 shadow-xl backdrop-blur-md view-enter ${styles[tone] || styles.teal}`;
+  el.innerHTML = `<div class="text-sm font-bold leading-snug">${title}</div>${subtitle ? `<div class="text-xs opacity-85 mt-0.5">${subtitle}</div>` : ''}`;
+  container.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(-8px)';
+    setTimeout(() => el.remove(), 260);
+  }, 3400);
+}
+
+function chairSvg(status) {
+  return `
+    <svg class="w-7 h-7 mb-1" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.1">
+      <path d="M6 6h20" stroke-linecap="round" stroke-width="2.3" opacity="0.45"/>
+      <rect x="8" y="11" width="16" height="11" rx="3.5" fill="currentColor" fill-opacity="0.18"/>
+      <path d="M7 25c3 2.5 15 2.5 18 0" stroke-linecap="round" stroke-width="2.5"/>
+      <path d="M6.5 13v6M25.5 13v6" stroke-linecap="round"/>
+      ${status === 'booked' ? '<path d="M13 14l6 5M19 14l-6 5" stroke-width="2" stroke-linecap="round"/>' : ''}
+      ${status === 'selected' ? '<path d="M12.5 16.5l2.5 2.5 5-5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>' : ''}
+      ${status === 'expiring' ? '<circle cx="16" cy="16.5" r="2.2" fill="currentColor"/>' : ''}
+    </svg>
+  `;
+}
+
+function qrSvg(cls = 'w-20 h-20') {
+  return `
+    <svg class="${cls}" viewBox="0 0 40 40" fill="currentColor">
+      <path d="M2 2h12v12H2V2zm2.5 2.5v7h7v-7h-7zM6.5 6.5h3v3h-3v-3zM26 2h12v12H26V2zm2.5 2.5v7h7v-7h-7zm2 2h3v3h-3v-3zM2 26h12v12H2V26zm2.5 2.5v7h7v-7h-7zm2 2h3v3h-3v-3zM17 3h3v3h-3V3zm4 0h2v5h-2V3zm-4 6h5v2h-5V9zm-2 4h3v4h-3v-4zm5 2h4v3h-4v-3zm-17 3h5v3H3v-3zm7 0h3v5h-3v-5zm5 2h4v4h-4v-4zm6-1h5v3h-5v-3zm7-2h4v5h-4v-5zm-12 7h3v5h-3v-5zm5 1h4v3h-4v-3zm6-1h4v4h-4v-4zm5 2h3v6h-3v-6zm-15 6h5v3h-5v-3zm7 0h4v4h-4v-4zm5 2h4v2h-4v-2z"/>
+    </svg>
+  `;
+}
+
+function facilityIcon(name) {
+  const icons = {
+    'High-Speed Wi-Fi': '📶',
+    'Power Sockets': '🔌',
+    'AC': '❄️',
+    'Lockers': '🔒',
+    'Whiteboard': '📝',
+    '4K Screen': '🖥️',
+    'Desk Lamp': '💡',
+    'Natural Light': '☀️'
+  };
+  return icons[name] || '✓';
+}
+
+function demoNoticeBar(extra = '') {
+  return `
+    <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-tealbrand-50/90 border border-tealbrand-500/30 text-xs text-navy-800 mb-5 shadow-sm">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-tealbrand-500 shrink-0"></span>
+        <span><strong>Demo Data — Sample LPU Prototype</strong> (Last refreshed ${STATE.lastRefreshed})</span>
+      </div>
+      ${extra}
+    </div>
+  `;
+}
+
+function renderHeader() {
+  const prof = getProfile();
+  const badge = getUrgentBadgeCount();
+  return `
+    <header class="sticky top-0 z-40 frosted-bar border-b border-slate-200/80 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+        <button data-go="home" class="flex items-center gap-2.5 shrink-0">
+          <div class="w-9 h-9 rounded-xl btn-navy flex items-center justify-center font-display font-extrabold text-base">L</div>
+          <div class="text-left leading-tight">
+            <div class="font-display font-extrabold text-navy-800 text-sm sm:text-base tracking-tight">A Seat to Study <span class="text-tealbrand-600">| LPU</span></div>
+            <div class="hidden sm:block text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Campus Study & Library Portal</div>
+          </div>
+        </button>
+
+        <div class="hidden md:flex flex-1 max-w-xs mx-2">
+          <form id="quick-search-form" class="w-full relative">
+            <input id="quick-search-input" type="search" value="${STATE.searchQuery}" placeholder="Search space, building, or book..." class="w-full pl-9 pr-3 py-2 rounded-full text-xs bg-slate-100/90 border border-slate-200 focus:bg-white focus:border-tealbrand-500 focus:outline-none text-navy-800">
+            <span class="absolute left-3 top-2 text-slate-400 text-xs">🔍</span>
+          </form>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-2.5">
+          <div class="flex items-center bg-slate-100/90 p-1 rounded-full border border-slate-200">
+            <button data-act="set-role" data-role="student" class="px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-bold ${STATE.role === 'student' ? 'btn-teal' : 'text-slate-600 hover:text-navy-800'}">Student</button>
+            <button data-act="set-role" data-role="faculty" class="px-2.5 sm:px-3 py-1 rounded-full text-[11px] font-bold ${STATE.role === 'faculty' ? 'btn-teal' : 'text-slate-600 hover:text-navy-800'}">Faculty</button>
+          </div>
+
+          <button data-go="books" title="Books, Fines & Reminders" class="relative w-9 h-9 rounded-xl btn-soft flex items-center justify-center text-base">
+            <span>🔔</span>
+            ${badge > 0 ? `<span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-extrabold flex items-center justify-center shadow">${badge}</span>` : ''}
+          </button>
+
+          <button data-go="profile" title="Digital Campus Profile & ID" class="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-full btn-soft">
+            <span class="w-7 h-7 rounded-full btn-navy text-[11px] font-extrabold flex items-center justify-center">${prof.initials}</span>
+            <span class="hidden lg:inline text-xs font-bold text-navy-800">${prof.name}</span>
+          </button>
+        </div>
+      </div>
+    </header>
+  `;
+}
+
+function renderSidebarAndMobileNav() {
+  const badge = getUrgentBadgeCount();
+  const isFlowScreen = ['preference', 'location', 'occupancy', 'details', 'final'].includes(STATE.screen);
+  const items = [
+    { id: 'home', label: 'Home', icon: '🏠', active: STATE.screen === 'home' },
+    { id: 'preference', label: 'Find a Seat', icon: '🪑', active: isFlowScreen },
+    { id: 'books', label: 'Books & Reminders', icon: '📚', active: STATE.screen === 'books', badge },
+    { id: 'profile', label: 'My Profile & ID', icon: '🪪', active: STATE.screen === 'profile' },
+    { id: 'flow', label: 'User Flow & CP5', icon: '🗺️', active: STATE.screen === 'flow' }
+  ];
+
+  const desktopSidebar = `
+    <aside class="hidden lg:flex flex-col w-64 shrink-0 sidebar-satin text-white sticky top-16 h-[calc(100vh-4rem)] p-4">
+      <div class="text-[10px] font-bold uppercase tracking-widest text-tealbrand-100/80 px-3 mb-2">Workspace Menu</div>
+      <nav class="space-y-1.5 flex-1">
+        ${items.map(it => `
+          <button data-go="${it.id}" class="nav-pill w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-left ${it.active ? 'btn-teal' : 'text-slate-300 hover:bg-white/10 hover:text-white'}">
+            <span class="flex items-center gap-3"><span class="text-base">${it.icon}</span><span>${it.label}</span></span>
+            ${it.badge > 0 ? `<span class="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-extrabold">${it.badge}</span>` : ''}
+          </button>
+        `).join('')}
+      </nav>
+      <div class="p-3.5 rounded-2xl bg-white/10 border border-white/10 text-[11px] text-slate-300 mt-4">
+        <div class="font-bold text-white mb-1">${getProfile().name}</div>
+        <div class="text-tealbrand-100">${getProfile().roleLabel} • ${getProfile().idNumber}</div>
+        <div class="mt-2 pt-2 border-t border-white/10 text-[10px] text-slate-400">INT335 CP5 Prototype • Demo Data</div>
+      </div>
+    </aside>
+  `;
+
+  const mobileBottomNav = `
+    <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 frosted-bar border-t border-slate-200 px-2 py-1.5 flex items-center justify-around shadow-lg">
+      ${items.map(it => `
+        <button data-go="${it.id}" class="relative flex flex-col items-center justify-center px-2 py-1 rounded-xl text-[10px] font-bold ${it.active ? 'text-tealbrand-700 bg-tealbrand-50' : 'text-slate-500'}">
+          <span class="text-base leading-none mb-0.5">${it.icon}</span>
+          <span class="truncate max-w-[66px]">${it.label.split(' ')[0]}</span>
+          ${it.badge > 0 ? `<span class="absolute top-0 right-1 w-4 h-4 rounded-full bg-rose-600 text-white text-[9px] font-extrabold flex items-center justify-center">${it.badge}</span>` : ''}
+        </button>
+      `).join('')}
+    </nav>
+  `;
+
+  return { desktopSidebar, mobileBottomNav };
+}
+
+function renderStepper(currentStep) {
+  const steps = [
+    { n: 1, id: 'home', label: 'Home' },
+    { n: 2, id: 'preference', label: 'Preference' },
+    { n: 3, id: 'location', label: 'Building & Floor' },
+    { n: 4, id: 'occupancy', label: 'Chair Matrix' },
+    { n: 5, id: 'details', label: 'Space Details' },
+    { n: 6, id: 'final', label: 'Final Pass' }
+  ];
+  return `
+    <div class="glass-card px-4 py-3 mb-5 overflow-x-auto">
+      <div class="flex items-center justify-between min-w-[540px] gap-2">
+        ${steps.map((st, idx) => {
+          const isCurr = st.n === currentStep;
+          const isDone = st.n < currentStep;
+          return `
+            <button data-go="${st.id}" class="flex items-center gap-2 group">
+              <span class="w-7 h-7 rounded-full text-xs font-extrabold flex items-center justify-center shrink-0 ${isCurr ? 'btn-teal ring-4 ring-tealbrand-100' : isDone ? 'btn-navy' : 'bg-slate-100 text-slate-500 group-hover:bg-navy-100'}">
+                ${isDone ? '✓' : st.n}
+              </span>
+              <span class="text-xs font-bold whitespace-nowrap ${isCurr ? 'text-navy-800' : isDone ? 'text-navy-800/80' : 'text-slate-400'}">${st.label}</span>
+            </button>
+            ${idx < steps.length - 1 ? `<div class="flex-1 h-0.5 rounded-full ${isDone ? 'bg-navy-800' : 'bg-slate-200'}"></div>` : ''}
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+const VIEWS = {
+  home() {
+    const visible = accessibleSpaces(SPACES);
+    const totalSeats = sumBy(visible, s => s.total);
+    const totalFree = sumBy(visible, countVacant);
+    const pendingFine = sumBy(STATE.books, getBookFine);
+    const sampleChairs = SPACES[0].chairs.slice(0, 8);
+
+    return `
+      <section class="hero-gradient border-b border-tealbrand-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-20 view-enter">
+          <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-7 space-y-5">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-tealbrand-500/30 text-xs font-bold text-tealbrand-700 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>LPU Smart Study Space & Library Portal</span>
+              </div>
+              <h1 class="font-display text-3xl sm:text-5xl font-extrabold text-navy-800 leading-[1.14] tracking-tight">
+                Find a vacant seat, explore floor chairs, and stay ahead of book dues.
+              </h1>
+              <p class="text-slate-600 text-sm sm:text-base max-w-xl leading-relaxed">
+                Designed for Lovely Professional University students and faculty. Discover quiet solo carrels or group rooms across 4 campus buildings, inspect live visual chair matrices, and track issued books, fines, and reminders in one place.
+              </p>
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <button data-go="preference" class="px-7 py-3.5 rounded-xl btn-navy text-sm font-bold">
+                  Find a Seat Now →
+                </button>
+                <button data-go="books" class="px-6 py-3.5 rounded-xl btn-soft text-sm font-bold">
+                  📚 Books & Reminders ${pendingFine > 0 ? `(₹${pendingFine} due)` : ''}
+                </button>
+              </div>
+              <div class="inline-flex items-center gap-2 text-xs text-slate-500 bg-white/80 px-3.5 py-2 rounded-xl border border-slate-200/80">
+                <strong class="text-navy-800">Demo Data — Sample LPU Prototype:</strong>
+                <span>${totalFree} of ${totalSeats} sample seats currently vacant across 4 buildings.</span>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 relative flex justify-center">
+              <div class="relative w-full max-w-md">
+                <div class="w-56 h-56 rounded-full bg-tealbrand-100/70 absolute -top-6 -right-4 blur-xl pointer-events-none"></div>
+                <div class="glass-card p-5 relative z-10 border-tealbrand-500/25">
+                  <div class="flex items-center justify-between mb-3">
+                    <div>
+                      <div class="text-[11px] font-bold uppercase tracking-wider text-tealbrand-600">Live Occupancy Preview</div>
+                      <div class="font-display font-extrabold text-navy-800 text-base">Central Library • Block 37</div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-extrabold">${totalFree} Vacant</span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2.5 bg-slate-50/90 p-3 rounded-2xl border border-slate-200/80 mb-3">
+                    ${sampleChairs.map(c => `
+                      <div class="chair-tile ${c.status} pointer-events-none !py-2">
+                        ${chairSvg(c.status)}
+                        <span class="text-[10px] font-bold">${c.code}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                  <div class="flex items-center justify-between text-xs pt-1">
+                    <div class="flex items-center gap-3 font-semibold text-slate-600">
+                      <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Vacant</span>
+                      <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>Booked</span>
+                      <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Reserved</span>
+                    </div>
+                    <button data-go="location" class="text-tealbrand-700 font-bold hover:underline">Explore Floors →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-14 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <div class="text-xs font-bold uppercase tracking-widest text-tealbrand-600 mb-1">Guided 6-Screen Journey</div>
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mb-9">How It Works in 4 Simple Steps</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            ${[
+              { n: 1, t: 'Pick Role & Study Mode', d: 'Choose LPU Student or Faculty, then select Solo quiet seating or Group rooms.', teal: false },
+              { n: 2, t: 'Step Into a Building Floor', d: 'Compare 4 campus blocks and click any floor in the elevation to enter inside.', teal: false },
+              { n: 3, t: 'Select a Vacant Chair', d: 'Inspect the green/red visual chair matrix and pick your exact seat number.', teal: false },
+              { n: 4, t: 'Confirm Pass & Track Books', d: 'Get your QR desk pass and manage issued books, fines, and reminders.', teal: true }
+            ].map(s => `
+              <div class="glass-card glass-card-hover p-6 flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full ${s.teal ? 'btn-teal' : 'btn-navy'} font-display font-extrabold text-lg flex items-center justify-center mb-4">${s.n}</div>
+                <h3 class="font-display font-bold text-navy-800 text-base mb-1.5">${s.t}</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">${s.d}</p>
+              </div>
+            `).join('')}
+          </div>
+          <button data-go="preference" class="px-7 py-3 rounded-xl btn-teal text-sm font-bold">Start Guided Seat Finder</button>
+        </div>
+      </section>
+
+      <section class="teal-section-gradient py-14 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-9">
+            <div class="text-xs font-bold uppercase tracking-widest text-tealbrand-100 mb-1">Built for University Life</div>
+            <h2 class="font-display text-2xl sm:text-3xl font-extrabold">Everything Students & Faculty Need</h2>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            ${[
+              { ico: '🪑', t: 'Live Visual Chair Matrix', d: 'Interactive SVG chair layouts showing vacant, booked, selected, and expiring seats per room.', go: 'occupancy' },
+              { ico: '🏢', t: 'Building & Floor Interior View', d: 'Click any floor across 4 LPU campus buildings to enter its live room-by-room floor plan.', go: 'location' },
+              { ico: '📚', t: 'Books & Fine Reminders', d: 'Track issued books, renew +7 days, pay ₹5/day overdue demo fines, and view a due calendar.', go: 'books' },
+              { ico: '🪪', t: 'Digital Campus ID Pass', d: 'Instant Student or Faculty QR ID pass with saved study preferences and active bookings.', go: 'profile' }
+            ].map(f => `
+              <button data-go="${f.go}" class="glass-card glass-card-hover p-6 text-left text-navy-800 flex flex-col">
+                <div class="w-12 h-12 rounded-2xl bg-tealbrand-100 text-2xl flex items-center justify-center mb-4">${f.ico}</div>
+                <h3 class="font-display font-bold text-base text-tealbrand-700 mb-1.5">${f.t}</h3>
+                <p class="text-xs text-slate-600 leading-relaxed flex-1">${f.d}</p>
+                <span class="text-xs font-bold text-navy-800 mt-3">Open feature →</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      </section>
+
+      <section class="py-14 bg-navy-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 text-center mb-7">Frequently Asked Questions</h2>
+          <div class="glass-card overflow-hidden divide-y divide-slate-200">
+            ${FAQS.map((item, idx) => {
+              const open = STATE.openFaq === idx;
+              return `
+                <div>
+                  <button data-act="toggle-faq" data-idx="${idx}" class="w-full px-6 py-4 text-left flex items-center justify-between gap-4 ${open ? 'bg-tealbrand-50/90 text-navy-800' : 'bg-white text-navy-800 hover:bg-slate-50'}">
+                    <span class="text-sm font-bold">${item.q}</span>
+                    <span class="text-tealbrand-600 font-extrabold text-lg">${open ? '−' : '+'}</span>
+                  </button>
+                  ${open ? `<div class="px-6 py-4 text-xs sm:text-sm text-slate-600 leading-relaxed bg-white view-enter">${item.a}</div>` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      </section>
+
+      <footer class="bg-navy-950 text-slate-300 py-11">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-white/10">
+            <div>
+              <div class="font-display font-extrabold text-white text-lg mb-2">A Seat to Study | LPU</div>
+              <p class="text-xs text-slate-400 leading-relaxed">INT335 Design Thinking CP5 Prototype for Lovely Professional University students and faculty.</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Navigation</h4>
+              <div class="flex flex-col items-start gap-2 text-xs">
+                <button data-go="preference" class="hover:text-tealbrand-400">Find a Seat</button>
+                <button data-go="books" class="hover:text-tealbrand-400">Books & Reminders</button>
+                <button data-go="profile" class="hover:text-tealbrand-400">Digital Profile & ID</button>
+                <button data-go="flow" class="hover:text-tealbrand-400">User Flow & CP5 Tasks</button>
+              </div>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Campus Blocks</h4>
+              <div class="flex flex-col items-start gap-2 text-xs">
+                ${BUILDINGS.map(b => `<button data-act="jump-bld" data-bld="${b.id}" class="hover:text-tealbrand-400">${b.name} (${b.block})</button>`).join('')}
+              </div>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Demo Notice</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">All occupancy, seat status, book due dates, and fine calculations are sample demo data for usability testing.</p>
+            </div>
+          </div>
+          <div class="pt-6 text-center text-xs text-slate-500">A Seat to Study • INT335 Design Thinking CP5 Submission • Lovely Professional University</div>
+        </div>
+      </footer>
+    `;
+  },
+
+  preference() {
+    return `
+      <div class="view-enter max-w-4xl">
+        ${renderStepper(2)}
+        ${demoNoticeBar()}
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-tealbrand-600">Step 2 of 6</span>
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mt-1">Study Preference Selection</h1>
+          <p class="text-sm text-slate-500 mt-1">Tailor recommendations for your LPU role and study session.</p>
+        </div>
+
+        <div class="glass-card p-5 mb-5">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">University Role</div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <button data-act="set-role" data-role="student" class="p-4 rounded-2xl border-2 text-left flex items-center gap-3.5 ${STATE.role === 'student' ? 'border-tealbrand-500 bg-tealbrand-50/70 shadow-sm' : 'border-slate-200 bg-white hover:border-tealbrand-400'}">
+              <div class="w-11 h-11 rounded-xl btn-navy flex items-center justify-center text-xl shrink-0">🎓</div>
+              <div>
+                <div class="font-display font-bold text-sm text-navy-800">LPU Student</div>
+                <div class="text-xs text-slate-500">Reading halls, silent carrels & group study rooms</div>
+              </div>
+            </button>
+            <button data-act="set-role" data-role="faculty" class="p-4 rounded-2xl border-2 text-left flex items-center gap-3.5 ${STATE.role === 'faculty' ? 'border-tealbrand-500 bg-tealbrand-50/70 shadow-sm' : 'border-slate-200 bg-white hover:border-tealbrand-400'}">
+              <div class="w-11 h-11 rounded-xl btn-teal flex items-center justify-center text-xl shrink-0">👩‍🏫</div>
+              <div>
+                <div class="font-display font-bold text-sm text-navy-800">Faculty / Teacher</div>
+                <div class="text-xs text-slate-500">Highlights Research Carrels & Faculty Seminar Suites</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <button data-act="set-mode" data-mode="solo" class="glass-card glass-card-hover p-6 text-left border-2 ${STATE.mode === 'solo' ? 'border-navy-800 ring-4 ring-navy-100' : 'border-slate-200'}">
+            <div class="flex items-center justify-between mb-3">
+              <span class="w-12 h-12 rounded-2xl bg-navy-50 text-2xl flex items-center justify-center">🧍</span>
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold ${STATE.mode === 'solo' ? 'btn-navy' : 'bg-slate-100 text-slate-500'}">${STATE.mode === 'solo' ? 'Selected' : 'Choose'}</span>
+            </div>
+            <h2 class="font-display font-bold text-lg text-navy-800">Solo Study</h2>
+            <p class="text-xs text-slate-500 mt-1">Individual quiet desks, partitioned silent carrels, and digital research stations.</p>
+          </button>
+
+          <button data-act="set-mode" data-mode="group" class="glass-card glass-card-hover p-6 text-left border-2 ${STATE.mode === 'group' ? 'border-navy-800 ring-4 ring-navy-100' : 'border-slate-200'}">
+            <div class="flex items-center justify-between mb-3">
+              <span class="w-12 h-12 rounded-2xl bg-tealbrand-50 text-2xl flex items-center justify-center">👥</span>
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold ${STATE.mode === 'group' ? 'btn-navy' : 'bg-slate-100 text-slate-500'}">${STATE.mode === 'group' ? 'Selected' : 'Choose'}</span>
+            </div>
+            <h2 class="font-display font-bold text-lg text-navy-800">Group Study</h2>
+            <p class="text-xs text-slate-500 mt-1">Glass discussion rooms, whiteboard zones, and capstone team pods.</p>
+          </button>
+        </div>
+
+        <div class="glass-card p-6 mb-6">
+          ${STATE.mode === 'solo' ? `
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Preferred Noise Level</div>
+            <div class="flex flex-wrap gap-2.5">
+              ${['Any', 'Silent', 'Quiet'].map(n => `
+                <button data-act="set-noise" data-val="${n}" class="px-5 py-2.5 rounded-full text-xs font-bold btn-chip ${STATE.noise === n ? 'active' : ''}">${n}</button>
+              `).join('')}
+            </div>
+          ` : `
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Group Size</div>
+            <div class="flex flex-wrap gap-2.5">
+              ${[2, 4, 6, 8].map(sz => `
+                <button data-act="set-size" data-val="${sz}" class="px-5 py-2.5 rounded-full text-xs font-bold btn-chip ${STATE.groupSize === sz ? 'active' : ''}">${sz} People</button>
+              `).join('')}
+            </div>
+          `}
+          ${STATE.role === 'faculty' ? `<div class="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-medium">✨ Faculty Mode Active: Dedicated <strong>Faculty Research Carrels</strong> and <strong>Seminar Suites</strong> are unlocked in the floor maps.</div>` : ''}
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <button data-go="home" class="px-5 py-2.5 rounded-xl btn-soft text-xs sm:text-sm font-bold">← Back to Home</button>
+          <button data-go="location" class="px-7 py-3 rounded-xl btn-navy text-xs sm:text-sm font-bold">Select Building & Floor →</button>
+        </div>
+      </div>
+    `;
+  },
+
+  location() {
+    return `
+      <div class="view-enter">
+        ${renderStepper(3)}
+        ${demoNoticeBar(`<button data-act="refresh-demo" class="px-3 py-1 rounded-lg btn-soft text-[11px] font-bold">↻ Simulate Live Refresh</button>`)}
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-tealbrand-600">Step 3 of 6 • ${STATE.mode === 'solo' ? 'Solo (' + STATE.noise + ')' : 'Group of ' + STATE.groupSize}</span>
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mt-1">Select an LPU Building & Enter a Floor</h1>
+          <p class="text-sm text-slate-500 mt-1">Click any floor in the architectural elevation below to smoothly enter that floor's live chair matrix.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          ${BUILDINGS.map(b => {
+            const bSpaces = accessibleSpaces(SPACES.filter(s => s.bld === b.id));
+            const total = sumBy(bSpaces, s => s.total);
+            const vacant = sumBy(bSpaces, countVacant);
+            const booked = total - vacant;
+            return `
+              <div class="glass-card p-5 flex flex-col">
+                <div class="flex items-start justify-between gap-3 mb-3">
+                  <div>
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-tealbrand-600">${b.block} • ${b.hours}</span>
+                    <h2 class="font-display text-lg font-extrabold text-navy-800 mt-0.5">${b.name}</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">${b.desc}</p>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-extrabold">${vacant} Vacant</div>
+                    <div class="text-[11px] text-rose-600 font-semibold mt-1">${booked} Booked</div>
+                  </div>
+                </div>
+
+                <div class="bg-slate-50/90 border border-slate-200 rounded-2xl p-3.5 mt-auto">
+                  <div class="h-2.5 w-11/12 mx-auto rounded-t-xl bg-navy-800 mb-2"></div>
+                  <div class="space-y-2">
+                    ${[...b.floors].reverse().map(fl => {
+                      const flSp = bSpaces.filter(s => s.floor === fl);
+                      const flVac = sumBy(flSp, countVacant);
+                      const flTot = sumBy(flSp, s => s.total);
+                      const matchCount = flSp.filter(spaceMatchesPreference).length;
+                      return `
+                        <button data-act="enter-floor" data-bld="${b.id}" data-fl="${fl}" class="floor-btn w-full p-3 rounded-xl bg-white border border-slate-200 flex items-center justify-between gap-3 text-left">
+                          <div class="flex items-center gap-3 min-w-0">
+                            <span class="w-9 h-9 rounded-lg btn-navy text-xs font-extrabold flex items-center justify-center shrink-0">F${fl}</span>
+                            <div class="min-w-0">
+                              <div class="font-bold text-xs sm:text-sm text-navy-800 truncate">Floor ${fl} ${matchCount > 0 ? `<span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-tealbrand-100 text-tealbrand-700">${matchCount} match</span>` : ''}</div>
+                              <div class="text-[11px] text-slate-500 truncate">${flSp.map(s => s.name).join(' • ')}</div>
+                            </div>
+                          </div>
+                          <div class="text-right shrink-0">
+                            <div class="text-xs font-extrabold ${flVac > 5 ? 'text-emerald-600' : 'text-amber-600'}">${flVac}/${flTot} free</div>
+                            <div class="text-[10px] font-bold text-tealbrand-700">Enter Floor →</div>
+                          </div>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+                  <div class="mt-2.5 pt-2 border-t-4 border-navy-800 text-center text-[10px] font-bold uppercase tracking-wider text-slate-400">Ground Entrance • ${b.block}</div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <button data-go="preference" class="px-5 py-2.5 rounded-xl btn-soft text-xs sm:text-sm font-bold">← Back to Preference</button>
+      </div>
+    `;
+  },
+
+  occupancy() {
+    const bld = getBuilding(STATE.buildingId);
+    const flSpacesAll = accessibleSpaces(SPACES.filter(s => s.bld === bld.id && s.floor === STATE.floor));
+    const flSpacesFiltered = flSpacesAll.filter(sp => {
+      if (STATE.floorFilter === 'match') return spaceMatchesPreference(sp);
+      if (STATE.floorFilter === 'vacant') return countVacant(sp) > 0;
+      return true;
+    });
+    const displaySpaces = flSpacesFiltered.length ? flSpacesFiltered : flSpacesAll;
+    if (!displaySpaces.some(s => s.id === STATE.activeSpaceId) && displaySpaces.length) {
+      STATE.activeSpaceId = displaySpaces[0].id;
+    }
+    const activeSp = getSpace(STATE.activeSpaceId);
+
+    const flTotal = sumBy(flSpacesAll, s => s.total);
+    const flVacant = sumBy(flSpacesAll, countVacant);
+    const flBooked = flTotal - flVacant;
+    const matchCount = flSpacesAll.filter(spaceMatchesPreference).length;
+
+    return `
+      <div class="view-enter">
+        ${renderStepper(4)}
+
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+            <button data-go="location" class="px-3 py-1.5 rounded-xl btn-soft">← All Buildings</button>
+            <span class="text-slate-400">›</span>
+            <span class="text-navy-800">${bld.name} (${bld.block})</span>
+            <span class="text-slate-400">›</span>
+            <span class="px-3 py-1 rounded-full bg-tealbrand-100 text-tealbrand-700">Floor ${STATE.floor} Interior</span>
+          </div>
+
+          <div class="flex items-center gap-1.5 bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+            ${bld.floors.map(f => `
+              <button data-act="enter-floor" data-bld="${bld.id}" data-fl="${f}" class="px-3.5 py-1.5 rounded-lg text-xs font-bold ${f === STATE.floor ? 'btn-navy' : 'text-slate-600 hover:bg-slate-100'}">Floor ${f}</button>
+            `).join('')}
+          </div>
+        </div>
+
+        ${demoNoticeBar(`<button data-act="refresh-demo" class="px-3.5 py-1.5 rounded-lg btn-teal text-[11px] font-bold">↻ Simulate Live Refresh</button>`)}
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-5">
+          <div class="kpi-satin p-4 border-l-4 border-l-navy-800">
+            <div class="text-xs font-semibold text-slate-500">Total Seats (Floor ${STATE.floor})</div>
+            <div class="font-display text-2xl font-extrabold text-navy-800 mt-1">${flTotal}</div>
+          </div>
+          <div class="kpi-satin p-4 border-l-4 border-l-emerald-500">
+            <div class="text-xs font-semibold text-slate-500">Vacant Seats</div>
+            <div class="font-display text-2xl font-extrabold text-emerald-600 mt-1">${flVacant}</div>
+          </div>
+          <div class="kpi-satin p-4 border-l-4 border-l-rose-600">
+            <div class="text-xs font-semibold text-slate-500">Booked Seats</div>
+            <div class="font-display text-2xl font-extrabold text-rose-600 mt-1">${flBooked}</div>
+          </div>
+          <div class="kpi-satin p-4 border-l-4 border-l-tealbrand-500">
+            <div class="text-xs font-semibold text-slate-500">Matching Spaces</div>
+            <div class="font-display text-2xl font-extrabold text-tealbrand-600 mt-1">${matchCount} / ${flSpacesAll.length}</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex flex-wrap gap-2">
+            ${[
+              ['all', 'All Spaces'],
+              ['match', 'Matching Preference'],
+              ['vacant', 'Vacant Only']
+            ].map(([k, lbl]) => `
+              <button data-act="set-floor-filter" data-val="${k}" class="px-3.5 py-1.5 rounded-full text-xs font-bold btn-chip ${STATE.floorFilter === k ? 'active' : ''}">${lbl}</button>
+            `).join('')}
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-[11px] font-bold text-slate-600">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Vacant</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span>Booked</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>Selected</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Faculty / Expiring</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2.5 mb-5">
+          ${displaySpaces.map(sp => {
+            const active = sp.id === activeSp.id;
+            return `
+              <button data-act="select-space" data-sp="${sp.id}" class="px-4 py-2.5 rounded-xl border-2 text-left ${active ? 'btn-navy border-navy-800' : 'bg-white border-slate-200 text-navy-800 hover:border-tealbrand-500'}">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs sm:text-sm font-bold">${sp.name}</span>
+                  ${sp.audience === 'faculty' ? `<span class="px-1.5 py-0.5 rounded bg-amber-400 text-navy-950 text-[10px] font-extrabold">FACULTY</span>` : ''}
+                </div>
+                <div class="text-[11px] mt-0.5 ${active ? 'text-tealbrand-100' : 'text-slate-500'}">${sp.type === 'solo' ? 'Solo' : 'Group'} • ${sp.noise} • ${countVacant(sp)} vacant</div>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="glass-card p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+            <div>
+              <h2 class="font-display text-xl font-extrabold text-navy-800">${activeSp.name} — Desk & Chair Matrix</h2>
+              <p class="text-xs text-slate-500 mt-0.5">${activeSp.desc}</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-bold">
+              <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">${countVacant(activeSp)} Vacant</span>
+              <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">${countBooked(activeSp)} Occupied</span>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            ${[0, 1].map(tableIdx => {
+              const half = Math.ceil(activeSp.chairs.length / 2);
+              const slice = activeSp.chairs.slice(tableIdx * half, (tableIdx + 1) * half);
+              if (!slice.length) return '';
+              return `
+                <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-4">
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500">Study Table Zone ${tableIdx + 1}</span>
+                    <span class="text-[11px] font-semibold text-tealbrand-700">${slice.filter(c => c.status === 'vacant').length} open</span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2.5">
+                    ${slice.map(ch => {
+                      const isSel = STATE.selectedChair && STATE.selectedChair.chairId === ch.id;
+                      const visual = isSel ? 'selected' : ch.status;
+                      const disabled = ch.status !== 'vacant' && !isSel;
+                      return `
+                        <button type="button" ${disabled ? 'disabled' : `data-act="pick-chair" data-sp="${activeSp.id}" data-ch="${ch.id}" data-code="${ch.code}"`} class="chair-tile ${visual}">
+                          ${chairSvg(visual)}
+                          <span class="text-[11px] font-bold leading-none">Seat ${ch.code}</span>
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+            <div class="text-xs sm:text-sm">
+              ${STATE.selectedChair && STATE.selectedChair.spaceId === activeSp.id
+                ? `<span class="text-slate-600">Selected:</span> <strong class="px-2.5 py-1 rounded-lg bg-blue-600 text-white ml-1">Seat ${STATE.selectedChair.code}</strong> <span class="text-slate-500 ml-1">in ${activeSp.name}</span>`
+                : `<span class="text-slate-500">Click any <strong class="text-emerald-600">green vacant chair</strong> to pick your exact seat, then view full details.</span>`}
+            </div>
+            <button data-act="open-details" data-sp="${activeSp.id}" class="px-6 py-3 rounded-xl btn-navy text-xs sm:text-sm font-bold">
+              View Space Details & Time Slots →
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  details() {
+    const sp = getSpace(STATE.activeSpaceId);
+    const bld = getBuilding(sp.bld);
+    if (!STATE.selectedChair || STATE.selectedChair.spaceId !== sp.id) {
+      const first = sp.chairs.find(c => c.status === 'vacant');
+      if (first) STATE.selectedChair = { spaceId: sp.id, chairId: first.id, code: first.code };
+    }
+
+    return `
+      <div class="view-enter max-w-5xl">
+        ${renderStepper(5)}
+        ${demoNoticeBar()}
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-tealbrand-600">Step 5 of 6 • Study-Space Details</span>
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mt-1">${sp.name}</h1>
+          <p class="text-sm text-slate-500 mt-1">${bld.name} (${bld.block}) • Floor ${sp.floor} • ${bld.hours}</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 space-y-5">
+            <div class="glass-card p-5">
+              <h2 class="font-display font-bold text-base text-navy-800 mb-2">Environment & Live Availability</h2>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">${sp.desc}</p>
+              <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between"><span class="text-slate-500">Study Mode</span><strong class="text-navy-800">${sp.type === 'solo' ? 'Solo Study' : 'Group Study'}</strong></div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between"><span class="text-slate-500">Noise Level</span><strong class="text-navy-800">${sp.noise}</strong></div>
+                <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex justify-between"><span class="text-emerald-700">Vacant Chairs</span><strong class="text-emerald-700">${countVacant(sp)} of ${sp.total}</strong></div>
+                <div class="p-3 rounded-xl bg-rose-50 border border-rose-200 flex justify-between"><span class="text-rose-700">Booked Chairs</span><strong class="text-rose-700">${countBooked(sp)}</strong></div>
+              </div>
+            </div>
+
+            <div class="glass-card p-5">
+              <h2 class="font-display font-bold text-base text-navy-800 mb-3">Facilities Included</h2>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                ${sp.facilities.map(f => `
+                  <div class="px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2 text-xs font-bold text-navy-800">
+                    <span>${facilityIcon(f)}</span>
+                    <span>${f}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="glass-card p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h2 class="font-display font-bold text-base text-navy-800">Mini Chair Preview</h2>
+                <span class="text-xs font-bold text-tealbrand-700">Tap green chair to switch</span>
+              </div>
+              <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                ${sp.chairs.map(ch => {
+                  const isSel = STATE.selectedChair && STATE.selectedChair.chairId === ch.id;
+                  const visual = isSel ? 'selected' : ch.status;
+                  const disabled = ch.status !== 'vacant' && !isSel;
+                  return `
+                    <button type="button" ${disabled ? 'disabled' : `data-act="pick-chair" data-sp="${sp.id}" data-ch="${ch.id}" data-code="${ch.code}"`} class="chair-tile ${visual} !py-2">
+                      <span class="text-[11px] font-bold">${ch.code}</span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 glass-card p-5 sticky top-20">
+            <h2 class="font-display font-bold text-base text-navy-800 pb-3 border-b border-slate-100">Choose Your Time Slot</h2>
+            <div class="my-4 p-3.5 rounded-xl bg-tealbrand-50 border border-tealbrand-500/30 flex items-center justify-between">
+              <div>
+                <div class="text-[10px] font-extrabold uppercase tracking-wider text-tealbrand-700">Chosen Seat</div>
+                <div class="font-display text-2xl font-extrabold text-navy-800">${STATE.selectedChair ? 'Seat ' + STATE.selectedChair.code : 'No Vacant Seat'}</div>
+              </div>
+              <div class="text-right text-xs">
+                <div class="font-bold text-navy-800">${getProfile().name}</div>
+                <div class="text-slate-500">${getProfile().idNumber}</div>
+              </div>
+            </div>
+
+            <div class="space-y-2 mb-5">
+              ${TIME_SLOTS.map(sl => `
+                <button data-act="set-slot" data-val="${sl}" class="w-full px-3.5 py-2.5 rounded-xl border text-left text-xs font-bold flex items-center justify-between ${STATE.timeSlot === sl ? 'btn-navy border-navy-800' : 'bg-white border-slate-200 text-slate-700 hover:border-tealbrand-500'}">
+                  <span>🕒 ${sl}</span>
+                  ${STATE.timeSlot === sl ? '<span>✓</span>' : ''}
+                </button>
+              `).join('')}
+            </div>
+
+            <button data-act="proceed-final" class="w-full py-3.5 rounded-xl btn-teal text-sm font-bold mb-3">
+              Generate Digital Seat Pass →
+            </button>
+            <button data-go="occupancy" class="w-full py-2.5 rounded-xl btn-soft text-xs font-bold">
+              ← Back to Chair Matrix
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  final() {
+    const pass = STATE.lastPass || STATE.bookings[0];
+    if (!pass) {
+      return `
+        <div class="view-enter max-w-xl mx-auto">
+          ${renderStepper(6)}
+          <div class="glass-card p-8 text-center">
+            <div class="text-3xl mb-2">🎟️</div>
+            <h2 class="font-display text-xl font-extrabold text-navy-800 mb-2">No Study Space Selected Yet</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mb-5">Pick a building floor and select a vacant chair to generate your Libraro-style Digital Seat Pass.</p>
+            <button data-go="location" class="px-6 py-3 rounded-xl btn-navy text-sm font-bold">Explore Campus Buildings →</button>
+          </div>
+        </div>
+      `;
+    }
+
+    const isSaved = STATE.bookings.some(b => b.bookingId === pass.bookingId);
+
+    return `
+      <div class="view-enter max-w-4xl">
+        ${renderStepper(6)}
+        ${demoNoticeBar()}
+
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-12 h-12 rounded-2xl btn-teal text-2xl flex items-center justify-center">✓</div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Step 6 of 6 • ${isSaved ? 'Saved to Your Profile' : 'Ready to Confirm'}</span>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800">Digital Study-Space Pass</h1>
+          </div>
+        </div>
+
+        <div class="glass-card overflow-hidden mb-6">
+          <div class="bg-navy-800 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div class="text-[11px] font-bold uppercase tracking-wider text-tealbrand-100">LPU Seat Pass • ${pass.bookingId}</div>
+              <div class="font-display text-xl font-extrabold mt-0.5">${pass.spaceName} — Seat ${pass.chairCode}</div>
+            </div>
+            <span class="px-3 py-1 rounded-full ${isSaved ? 'bg-emerald-500' : 'bg-amber-500'} text-white text-xs font-extrabold">${isSaved ? 'Confirmed & Saved' : 'Pending Confirmation'}</span>
+          </div>
+
+          <div class="p-6 grid md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-8 space-y-2.5 text-xs sm:text-sm">
+              <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Reserved For</span><strong class="text-navy-800">${pass.userName} (${pass.userId})</strong></div>
+              <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Location</span><strong class="text-navy-800">${pass.buildingName} (${pass.block}), Floor ${pass.floor}</strong></div>
+              <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Room & Seat</span><strong class="text-tealbrand-700">${pass.spaceName} • Seat ${pass.chairCode}</strong></div>
+              <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Time Slot</span><strong class="text-navy-800">${pass.slot}</strong></div>
+              <div class="flex justify-between py-2 border-b border-slate-100"><span class="text-slate-500">Noise Level</span><strong class="text-navy-800">${pass.noise}</strong></div>
+              <div class="flex justify-between py-2"><span class="text-slate-500">Facilities</span><strong class="text-navy-800 text-right">${pass.facilities.join(', ')}</strong></div>
+            </div>
+            <div class="md:col-span-4 flex flex-col items-center justify-center bg-slate-50 rounded-2xl p-5 border border-slate-200 text-center">
+              <div class="bg-white p-3 rounded-xl shadow-sm text-navy-900 mb-3">${qrSvg('w-28 h-28')}</div>
+              <div class="text-xs font-bold text-navy-800">Desk Check-In QR</div>
+              <div class="text-[11px] text-slate-500 mt-0.5">${pass.date} • Demo Pass</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          ${!isSaved ? `<button data-act="save-pass" class="px-6 py-3 rounded-xl btn-teal text-xs sm:text-sm font-bold">✓ Confirm & Save to My Profile</button>` : ''}
+          <button data-act="add-study-rem" class="px-5 py-3 rounded-xl btn-navy text-xs sm:text-sm font-bold">🔔 Add Study Reminder</button>
+          <button data-act="copy-pass" class="px-5 py-3 rounded-xl btn-soft text-xs sm:text-sm font-bold">📋 Copy Details to Share</button>
+          ${isSaved ? `<button data-act="cancel-pass" data-id="${pass.bookingId}" class="px-5 py-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 text-xs sm:text-sm font-bold">✕ Cancel Booking</button>` : ''}
+        </div>
+      </div>
+    `;
+  },
+
+  books() {
+    const overdueCount = STATE.books.filter(b => b.dueOffset < 0 && !b.finePaid).length;
+    const dueSoonCount = STATE.books.filter(b => b.dueOffset >= 0 && b.dueOffset <= 3).length;
+    const totalFines = sumBy(STATE.books, getBookFine);
+    const reminders = getAllReminders();
+
+    const year = TODAY.getFullYear();
+    const month = TODAY.getMonth();
+    const firstWeekday = (new Date(year, month, 1).getDay() + 6) % 7;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const eventsByDay = {};
+    STATE.books.forEach(b => {
+      const d = addDays(b.dueOffset);
+      if (d.getMonth() === month && d.getFullYear() === year) {
+        const day = d.getDate();
+        if (!eventsByDay[day]) eventsByDay[day] = [];
+        const st = getBookStatus(b);
+        eventsByDay[day].push({ color: st.key === 'overdue' ? 'bg-rose-600' : st.key === 'soon' ? 'bg-amber-500' : 'bg-emerald-500', text: `${b.title} (${st.label}${getBookFine(b) > 0 ? ', ₹' + getBookFine(b) : ''})` });
+      }
+    });
+    STATE.bookings.forEach(bk => {
+      const day = TODAY.getDate();
+      if (!eventsByDay[day]) eventsByDay[day] = [];
+      eventsByDay[day].push({ color: 'bg-tealbrand-500', text: `Seat ${bk.chairCode} at ${bk.spaceName} (${bk.slot})` });
+    });
+
+    const selectedDayEvents = eventsByDay[STATE.selectedCalDay] || [];
+
+    return `
+      <div class="view-enter">
+        ${demoNoticeBar(`<span class="text-[11px] font-bold text-tealbrand-700">Fine rate: ₹5 / overdue day</span>`)}
+
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-tealbrand-600">Library Accountability & Alerts</span>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mt-1">Issued Books, Fines & Smart Reminders</h1>
+          </div>
+          <button data-go="preference" class="px-5 py-2.5 rounded-xl btn-navy text-xs font-bold">🪑 Find a Study Seat</button>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-6">
+          <div class="kpi-satin p-4 border-l-4 border-l-navy-800">
+            <div class="text-xs font-semibold text-slate-500">Books Currently Issued</div>
+            <div class="font-display text-2xl font-extrabold text-navy-800 mt-1">${STATE.books.length}</div>
+            <div class="text-[11px] text-slate-400">LPU Central Catalog</div>
+          </div>
+          <div class="kpi-satin p-4 border-l-4 border-l-rose-600">
+            <div class="text-xs font-semibold text-slate-500">Overdue Books</div>
+            <div class="font-display text-2xl font-extrabold text-rose-600 mt-1">${overdueCount}</div>
+            <div class="text-[11px] text-rose-600 font-medium">${overdueCount > 0 ? 'Action needed' : 'All clear!'}</div>
+          </div>
+          <div class="kpi-satin p-4 border-l-4 border-l-amber-500">
+            <div class="text-xs font-semibold text-slate-500">Due Within 3 Days</div>
+            <div class="font-display text-2xl font-extrabold text-amber-600 mt-1">${dueSoonCount}</div>
+            <div class="text-[11px] text-amber-700 font-medium">Renew before due date</div>
+          </div>
+          <div class="kpi-satin p-4 border-l-4 border-l-tealbrand-500">
+            <div class="text-xs font-semibold text-slate-500">Total Pending Fines</div>
+            <div class="font-display text-2xl font-extrabold ${totalFines > 0 ? 'text-rose-600' : 'text-emerald-600'} mt-1">₹${totalFines}</div>
+            <div class="text-[11px] text-slate-400">₹5 / day overdue</div>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 mb-6 overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100 mb-4">
+            <div>
+              <h2 class="font-display font-bold text-lg text-navy-800">Issued Books & Dues</h2>
+              <p class="text-xs text-slate-500">Renew on-time books by +7 days, settle overdue fines via demo payment, or set instant reminders.</p>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[760px]">
+              <thead>
+                <tr class="text-[11px] uppercase tracking-wider text-slate-400 border-b border-slate-200">
+                  <th class="py-2.5 pr-4">Book & Call No.</th>
+                  <th class="py-2.5 px-3">Issued</th>
+                  <th class="py-2.5 px-3">Due Date</th>
+                  <th class="py-2.5 px-3">Status</th>
+                  <th class="py-2.5 px-3">Fine</th>
+                  <th class="py-2.5 pl-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-xs">
+                ${STATE.books.map(b => {
+                  const st = getBookStatus(b);
+                  const fine = getBookFine(b);
+                  const daysText = b.dueOffset < 0 ? `${Math.abs(b.dueOffset)}d overdue` : b.dueOffset === 0 ? 'Due today' : `${b.dueOffset}d left`;
+                  return `
+                    <tr class="hover:bg-slate-50/80 transition">
+                      <td class="py-3.5 pr-4">
+                        <div class="font-bold text-navy-800 text-sm">${b.title}</div>
+                        <div class="text-[11px] text-slate-500">${b.author} • <span class="font-mono text-tealbrand-700">${b.callNo}</span></div>
+                      </td>
+                      <td class="py-3.5 px-3 text-slate-600 whitespace-nowrap">${fmtShortDate(addDays(b.issuedOffset))}</td>
+                      <td class="py-3.5 px-3 whitespace-nowrap">
+                        <div class="font-bold text-navy-800">${fmtShortDate(addDays(b.dueOffset))}</div>
+                        <div class="text-[11px] ${b.dueOffset < 0 ? 'text-rose-600 font-semibold' : 'text-slate-400'}">${daysText}</div>
+                      </td>
+                      <td class="py-3.5 px-3 whitespace-nowrap">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold border ${st.cls}">${st.label}</span>
+                      </td>
+                      <td class="py-3.5 px-3 font-extrabold whitespace-nowrap ${fine > 0 ? 'text-rose-600' : 'text-emerald-600'}">₹${fine}</td>
+                      <td class="py-3.5 pl-3 text-right whitespace-nowrap">
+                        <div class="inline-flex items-center gap-1.5">
+                          ${fine > 0
+                            ? `<button data-act="open-pay-modal" data-bk="${b.id}" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold shadow-sm">Pay Fine (₹${fine})</button>`
+                            : `<button data-act="renew-book" data-bk="${b.id}" class="px-3 py-1.5 rounded-lg btn-teal text-[11px] font-bold">Renew (+7d)</button>`}
+                          <button data-act="quick-book-rem" data-bk="${b.id}" class="px-2.5 py-1.5 rounded-lg btn-soft text-[11px] font-bold" title="Set Reminder">🔔</button>
+                        </div>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 space-y-5">
+            <div class="glass-card p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h2 class="font-display font-bold text-base text-navy-800">Smart Reminders & Urgent Alerts</h2>
+                  <p class="text-xs text-slate-500">Auto-synced with overdue fines, upcoming dues, and your seat bookings.</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-navy-100 text-navy-800 text-xs font-extrabold">${reminders.length} Active</span>
+              </div>
+
+              ${reminders.length ? `
+                <div class="space-y-2.5 mb-5">
+                  ${reminders.map(r => {
+                    const dot = r.urgent === 'overdue' ? 'bg-rose-600' : r.urgent === 'soon' ? 'bg-amber-500' : r.urgent === 'booking' ? 'bg-tealbrand-500' : 'bg-blue-600';
+                    return `
+                      <div class="p-3.5 rounded-xl bg-slate-50/90 border border-slate-200 flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                          <span class="w-2.5 h-2.5 rounded-full mt-1.5 shrink-0 ${dot}"></span>
+                          <div>
+                            <div class="text-xs sm:text-sm font-bold text-navy-800">${r.title}</div>
+                            <div class="text-[11px] text-slate-500 mt-0.5">${r.category} • ${r.when}</div>
+                          </div>
+                        </div>
+                        <button data-act="dismiss-rem" data-id="${r.id}" data-auto="${r.auto}" class="px-2.5 py-1 rounded-lg btn-soft text-[11px] font-bold shrink-0">Mark Done</button>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : `<div class="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-xl mb-5">All reminders completed!</div>`}
+
+              <form id="add-reminder-form" class="p-4 rounded-2xl bg-navy-50 border border-slate-200 space-y-3">
+                <div class="text-xs font-extrabold uppercase tracking-wider text-navy-800">Add Custom Reminder</div>
+                <input id="rem-title" type="text" required placeholder="e.g., Return CLRS textbook before lab..." class="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs focus:border-tealbrand-500 focus:outline-none">
+                <div class="grid sm:grid-cols-2 gap-2.5">
+                  <select id="rem-cat" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-navy-800">
+                    <option value="Book Due">Book Due</option>
+                    <option value="Fine Payment">Fine Payment</option>
+                    <option value="Study Session">Study Session</option>
+                  </select>
+                  <input id="rem-when" type="datetime-local" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs text-navy-800">
+                </div>
+                <button type="submit" class="px-5 py-2 rounded-xl btn-navy text-xs font-bold">+ Add Reminder</button>
+              </form>
+            </div>
+
+            <div class="glass-card p-5">
+              <h2 class="font-display font-bold text-base text-navy-800 mb-1">Automated Reminder Channels (Demo)</h2>
+              <p class="text-xs text-slate-500 mb-4">Choose how you want LPU Library to notify you before due dates.</p>
+              <div class="space-y-3">
+                ${[
+                  ['whatsapp', 'WhatsApp Due Alerts', 'Instant reminders 48h before book expiry & fine receipts'],
+                  ['email', 'LPU Email Digest', 'Weekly summary sent to ' + getProfile().email],
+                  ['push', 'Browser Push Notifications', 'Desktop & mobile alerts for upcoming seat slots']
+                ].map(([key, title, desc]) => {
+                  const on = STATE.channels[key];
+                  return `
+                    <div class="flex items-center justify-between gap-4 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <div>
+                        <div class="text-xs font-bold text-navy-800">${title}</div>
+                        <div class="text-[11px] text-slate-500">${desc}</div>
+                      </div>
+                      <button type="button" data-act="toggle-channel" data-ch="${key}" class="switch-track shrink-0 ${on ? 'on bg-tealbrand-600' : 'bg-slate-300'}" aria-pressed="${on}">
+                        <span class="switch-thumb"></span>
+                      </button>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 glass-card p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="font-display font-bold text-base text-navy-800">${TODAY.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</h2>
+              <span class="text-[11px] font-bold text-tealbrand-700">Click any dotted date</span>
+            </div>
+            <div class="grid grid-cols-7 gap-1 text-center text-[11px] font-bold text-slate-400 mb-2">
+              ${['M','T','W','T','F','S','S'].map(d => `<div>${d}</div>`).join('')}
+            </div>
+            <div class="grid grid-cols-7 gap-1.5 text-center text-xs">
+              ${'<div></div>'.repeat(firstWeekday)}
+              ${Array.from({ length: daysInMonth }, (_, i) => {
+                const day = i + 1;
+                const isToday = day === TODAY.getDate();
+                const isSel = day === STATE.selectedCalDay;
+                const evs = eventsByDay[day] || [];
+                return `
+                  <button data-act="select-cal-day" data-day="${day}" class="py-2 rounded-xl flex flex-col items-center justify-center relative ${isSel ? 'btn-navy' : isToday ? 'bg-tealbrand-100 text-tealbrand-700 font-extrabold' : 'hover:bg-slate-100 text-navy-800 font-semibold'}">
+                    <span>${day}</span>
+                    <span class="flex gap-0.5 mt-1 h-1.5">
+                      ${evs.slice(0, 3).map(ev => `<span class="w-1.5 h-1.5 rounded-full ${isSel ? 'bg-white' : ev.color}"></span>`).join('')}
+                    </span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-200">
+              <div class="text-xs font-extrabold text-navy-800 mb-2">Events on ${STATE.selectedCalDay} ${TODAY.toLocaleDateString('en-GB', { month: 'short' })}</div>
+              ${selectedDayEvents.length ? `
+                <div class="space-y-2">
+                  ${selectedDayEvents.map(ev => `
+                    <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2 text-xs text-navy-800">
+                      <span class="w-2.5 h-2.5 rounded-full shrink-0 ${ev.color}"></span>
+                      <span class="font-medium">${ev.text}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : `<div class="text-xs text-slate-400">No book dues or seat bookings on this date.</div>`}
+            </div>
+
+            <div class="flex flex-wrap gap-3 mt-4 pt-3 border-t border-slate-100 text-[10px] font-bold text-slate-500">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-600"></span>Overdue</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Due Soon</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>On Time</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tealbrand-500"></span>Seat Booked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  profile() {
+    const prof = getProfile();
+    const totalFines = sumBy(STATE.books, getBookFine);
+    const overdueCount = STATE.books.filter(b => b.dueOffset < 0 && !b.finePaid).length;
+
+    return `
+      <div class="view-enter max-w-5xl">
+        ${demoNoticeBar()}
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-tealbrand-600">Digital Campus Identity</span>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mt-1">Student & Faculty Profile</h1>
+          </div>
+          <div class="flex items-center bg-white p-1 rounded-xl border border-slate-200 shadow-sm">
+            <button data-act="set-role" data-role="student" class="px-4 py-2 rounded-lg text-xs font-bold ${STATE.role === 'student' ? 'btn-navy' : 'text-slate-600'}">🎓 Student View</button>
+            <button data-act="set-role" data-role="faculty" class="px-4 py-2 rounded-lg text-xs font-bold ${STATE.role === 'faculty' ? 'btn-teal' : 'text-slate-600'}">👩‍🏫 Faculty View</button>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-5 space-y-5">
+            <div class="rounded-3xl p-6 text-white shadow-xl" style="background: linear-gradient(135deg, #12193F 0%, #1B2459 55%, #0E8F9F 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 14px 32px rgba(27,36,89,0.24);">
+              <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/15">
+                <div>
+                  <div class="text-[10px] font-extrabold uppercase tracking-widest text-tealbrand-100">Lovely Professional University</div>
+                  <div class="text-xs text-slate-300">Official Digital Study Pass</div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-white/15 border border-white/20 text-[11px] font-bold">${prof.roleLabel}</span>
+              </div>
+
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-16 h-16 rounded-2xl bg-white text-navy-900 font-display font-extrabold text-2xl flex items-center justify-center shrink-0 shadow">${prof.initials}</div>
+                <div>
+                  <h2 class="font-display text-xl font-extrabold">${prof.name}</h2>
+                  <div class="text-xs text-tealbrand-100 font-medium">${prof.department}</div>
+                  <div class="text-[11px] text-slate-300 mt-0.5">${prof.meta}</div>
+                </div>
+              </div>
+
+              <div class="bg-white/10 backdrop-blur rounded-2xl p-3.5 border border-white/15 flex items-center justify-between gap-3">
+                <div class="text-xs space-y-1">
+                  <div class="text-tealbrand-100 uppercase text-[10px] font-bold">University ID</div>
+                  <div class="font-mono font-bold text-sm">${prof.idNumber}</div>
+                  <div class="text-[11px] text-slate-300">${prof.email}</div>
+                </div>
+                <div class="bg-white p-1.5 rounded-xl text-navy-950 shrink-0">${qrSvg('w-16 h-16')}</div>
+              </div>
+            </div>
+
+            <div class="glass-card p-5 space-y-3.5">
+              <h3 class="font-display font-bold text-base text-navy-800">Editable Study Preferences</h3>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">Default Mode</label>
+                <select id="pref-mode" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-navy-800">
+                  <option value="solo" ${prof.defaultMode === 'solo' ? 'selected' : ''}>Solo Study</option>
+                  <option value="group" ${prof.defaultMode === 'group' ? 'selected' : ''}>Group Study</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">Preferred Building</label>
+                <select id="pref-bld" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-navy-800">
+                  ${BUILDINGS.map(b => `<option value="${b.id}" ${prof.defaultBuilding === b.id ? 'selected' : ''}>${b.name} (${b.block})</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">Preferred Noise Level</label>
+                <select id="pref-noise" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-navy-800">
+                  ${['Any', 'Silent', 'Quiet'].map(n => `<option value="${n}" ${prof.defaultNoise === n ? 'selected' : ''}>${n}</option>`).join('')}
+                </select>
+              </div>
+              <button data-act="save-prefs" class="w-full py-2.5 rounded-xl btn-navy text-xs font-bold">Save Study Preferences</button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-5">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="kpi-satin p-5">
+                <div class="text-xs font-semibold text-slate-500">Active Seat Bookings</div>
+                <div class="font-display text-2xl font-extrabold text-navy-800 mt-1">${STATE.bookings.length}</div>
+                <button data-go="location" class="text-xs font-bold text-tealbrand-700 mt-2 hover:underline">Book a new seat →</button>
+              </div>
+              <div class="kpi-satin p-5">
+                <div class="text-xs font-semibold text-slate-500">Pending Library Dues</div>
+                <div class="font-display text-2xl font-extrabold ${totalFines > 0 ? 'text-rose-600' : 'text-emerald-600'} mt-1">₹${totalFines} <span class="text-xs font-semibold text-slate-400">(${overdueCount} overdue)</span></div>
+                <button data-go="books" class="text-xs font-bold text-tealbrand-700 mt-2 hover:underline">Open Books & Reminders →</button>
+              </div>
+            </div>
+
+            <div class="glass-card p-6">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                <div>
+                  <h2 class="font-display font-bold text-lg text-navy-800">Active Seat Booking Passes</h2>
+                  <p class="text-xs text-slate-500">Cancelling a booking immediately frees the chair back to green.</p>
+                </div>
+              </div>
+              ${STATE.bookings.length ? `
+                <div class="space-y-3">
+                  ${STATE.bookings.map(bk => `
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="px-2.5 py-0.5 rounded-lg btn-navy text-xs font-bold">Seat ${bk.chairCode}</span>
+                          <span class="font-bold text-sm text-navy-800">${bk.spaceName}</span>
+                        </div>
+                        <div class="text-xs text-slate-600 mt-1">${bk.buildingName} (${bk.block}) • Floor ${bk.floor}</div>
+                        <div class="text-[11px] text-slate-500 mt-0.5">🕒 ${bk.slot}</div>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <button data-act="view-pass" data-id="${bk.bookingId}" class="px-3 py-1.5 rounded-lg btn-soft text-xs font-bold">QR Pass</button>
+                        <button data-act="cancel-pass" data-id="${bk.bookingId}" class="px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 text-xs font-bold">Cancel</button>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : `
+                <div class="text-center py-8">
+                  <div class="text-3xl mb-2">🪑</div>
+                  <div class="text-sm font-bold text-navy-800">No Active Seat Passes</div>
+                  <p class="text-xs text-slate-500 mt-1 mb-4">Explore any building floor to reserve a vacant chair.</p>
+                  <button data-go="preference" class="px-5 py-2.5 rounded-xl btn-teal text-xs font-bold">Find a Seat →</button>
+                </div>
+              `}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  flow() {
+    const nodes = [
+      { n: 1, id: 'home', t: 'Home Page', d: 'Hero, 4 steps & FAQs' },
+      { n: 2, id: 'preference', t: 'Study Preference', d: 'Role, Solo/Group & Noise' },
+      { n: 3, id: 'location', t: 'Building & Floor', d: '4 LPU blocks & elevations' },
+      { n: 4, id: 'occupancy', t: 'Chair Matrix', d: 'Floor interior green/red chairs' },
+      { n: 5, id: 'details', t: 'Space Details', d: 'Facilities & time slots' },
+      { n: 6, id: 'final', t: 'Final Seat Pass', d: 'QR pass, save & share' }
+    ];
+    const donePct = Math.round((STATE.completedTasks.length / CP5_TASKS.length) * 100);
+
+    return `
+      <div class="view-enter max-w-5xl">
+        ${demoNoticeBar()}
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-tealbrand-600">INT335 Design Thinking • CP5 Deliverable</span>
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-navy-800 mt-1">Interactive User Flow & Usability Testing</h1>
+          <p class="text-sm text-slate-500 mt-1">Click any node in the flow diagram to open that screen, and track live usability test completion below.</p>
+        </div>
+
+        <div class="glass-card p-6 mb-6">
+          <h2 class="font-display font-bold text-base text-navy-800 mb-4">Connected 6-Screen User Flow + Side Paths</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-5">
+            ${nodes.map(nd => `
+              <button data-go="${nd.id}" class="glass-card glass-card-hover p-4 text-left flex items-start gap-3">
+                <span class="w-8 h-8 rounded-full btn-navy font-display font-extrabold text-xs flex items-center justify-center shrink-0">${nd.n}</span>
+                <div>
+                  <div class="font-bold text-sm text-navy-800">${nd.t}</div>
+                  <div class="text-xs text-slate-500 mt-0.5">${nd.d}</div>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+
+          <div class="pt-4 border-t border-slate-200 grid sm:grid-cols-2 gap-3">
+            <button data-go="books" class="p-4 rounded-2xl bg-tealbrand-50/80 border border-tealbrand-500/30 hover:border-tealbrand-500 text-left flex items-center justify-between gap-3">
+              <div>
+                <div class="text-[10px] font-extrabold uppercase tracking-wider text-tealbrand-700">Side Path A</div>
+                <div class="font-bold text-sm text-navy-800">Books, Fines & Smart Reminders</div>
+              </div>
+              <span class="font-bold text-tealbrand-700">→</span>
+            </button>
+            <button data-go="profile" class="p-4 rounded-2xl bg-navy-50 border border-slate-200 hover:border-navy-800 text-left flex items-center justify-between gap-3">
+              <div>
+                <div class="text-[10px] font-extrabold uppercase tracking-wider text-navy-800">Side Path B</div>
+                <div class="font-bold text-sm text-navy-800">Digital Student / Faculty Profile & ID</div>
+              </div>
+              <span class="font-bold text-navy-800">→</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <div>
+              <h2 class="font-display font-bold text-lg text-navy-800">CP5 Usability Testing Checklist</h2>
+              <p class="text-xs text-slate-500">Check off tasks as LPU students and teachers complete them during testing.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-tealbrand-100 text-tealbrand-700 text-xs font-extrabold">${STATE.completedTasks.length} / ${CP5_TASKS.length} Completed (${donePct}%)</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-5">
+            <div class="h-full bg-tealbrand-500 rounded-full transition-all duration-300" style="width:${donePct}%"></div>
+          </div>
+          <div class="space-y-2.5">
+            ${CP5_TASKS.map((t, idx) => {
+              const checked = STATE.completedTasks.includes(t.id);
+              return `
+                <button data-act="toggle-task" data-id="${t.id}" class="w-full p-4 rounded-xl border text-left flex items-start gap-3 ${checked ? 'bg-emerald-50/80 border-emerald-300' : 'bg-slate-50/90 border-slate-200 hover:border-tealbrand-500'}">
+                  <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 mt-0.5 ${checked ? 'bg-emerald-500 text-white' : 'bg-white border border-slate-300 text-slate-400'}">${checked ? '✓' : idx + 1}</span>
+                  <span class="text-xs sm:text-sm ${checked ? 'line-through text-emerald-900/70' : 'text-navy-800 font-medium'}">${t.text}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+};
+
+function renderModal() {
+  const root = document.getElementById('modal-root');
+  if (!STATE.paymentModalBookId) {
+    root.innerHTML = '';
+    return;
+  }
+  const book = STATE.books.find(b => b.id === STATE.paymentModalBookId);
+  if (!book) {
+    root.innerHTML = '';
+    return;
+  }
+  const fine = getBookFine(book);
+  root.innerHTML = `
+    <div class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4">
+      <div class="glass-card max-w-md w-full p-6 view-enter shadow-2xl">
+        <div class="flex items-start justify-between gap-3 pb-3 border-b border-slate-100 mb-4">
+          <div>
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-tealbrand-600">LPU Demo Fine Settlement</span>
+            <h3 class="font-display text-lg font-extrabold text-navy-800">Pay Overdue Library Fine</h3>
+          </div>
+          <button data-act="close-pay-modal" class="w-8 h-8 rounded-lg btn-soft text-sm font-bold">✕</button>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 mb-4">
+          <div class="text-xs font-bold text-navy-800">${book.title}</div>
+          <div class="flex items-center justify-between mt-1.5 text-xs">
+            <span class="text-rose-700">${Math.abs(book.dueOffset)} days overdue × ₹5/day</span>
+            <strong class="font-display text-lg text-rose-700">₹${fine}</strong>
+          </div>
+        </div>
+
+        <div class="text-xs font-bold text-slate-600 mb-2">Select Demo Payment Method</div>
+        <div class="grid grid-cols-3 gap-2 mb-5">
+          ${['UPI', 'Campus Wallet', 'Card'].map(m => `
+            <button data-act="set-pay-method" data-val="${m}" class="py-2.5 px-2 rounded-xl text-xs font-bold border ${STATE.paymentMethod === m ? 'btn-navy border-navy-800' : 'bg-white border-slate-200 text-slate-700 hover:border-tealbrand-500'}">${m}</button>
+          `).join('')}
+        </div>
+
+        <div class="flex gap-2.5">
+          <button data-act="close-pay-modal" class="flex-1 py-2.5 rounded-xl btn-soft text-xs font-bold">Cancel</button>
+          <button data-act="confirm-pay-fine" data-bk="${book.id}" class="flex-1 py-2.5 rounded-xl btn-teal text-xs font-bold">Pay ₹${fine} Now (Demo)</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderApp(keepScroll = false) {
+  const shell = document.getElementById('app-shell');
+  const { desktopSidebar, mobileBottomNav } = renderSidebarAndMobileNav();
+
+  if (STATE.screen === 'home') {
+    shell.innerHTML = `${renderHeader()}<main class="flex-1">${VIEWS.home()}</main>`;
+  } else {
+    shell.innerHTML = `
+      ${renderHeader()}
+      <div class="flex-1 flex">
+        ${desktopSidebar}
+        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-10">
+          ${VIEWS[STATE.screen]()}
+        </main>
+      </div>
+      ${mobileBottomNav}
+    `;
+  }
+
+  renderModal();
+  if (!keepScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyText(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('Details Copied!', 'Ready to paste into WhatsApp or Teams.', 'green');
+  } catch (err) {
+    showToast('Copy Unavailable', 'Please copy the pass details manually.', 'amber');
+  }
+  ta.remove();
+}
+
+document.addEventListener('click', (e) => {
+  const goEl = e.target.closest('[data-go]');
+  if (goEl) {
+    STATE.screen = goEl.dataset.go;
+    renderApp(false);
+    return;
+  }
+
+  const actEl = e.target.closest('[data-act]');
+  if (!actEl || actEl.disabled) return;
+  const act = actEl.dataset.act;
+
+  if (act === 'set-role') {
+    STATE.role = actEl.dataset.role;
+    showToast(`Switched to ${getProfile().roleLabel}`, `Signed in as ${getProfile().name} (${getProfile().idNumber})`, 'teal');
+    renderApp(true);
+  }
+  else if (act === 'toggle-faq') {
+    const idx = Number(actEl.dataset.idx);
+    STATE.openFaq = STATE.openFaq === idx ? -1 : idx;
+    renderApp(true);
+  }
+  else if (act === 'set-mode') { STATE.mode = actEl.dataset.mode; renderApp(true); }
+  else if (act === 'set-noise') { STATE.noise = actEl.dataset.val; renderApp(true); }
+  else if (act === 'set-size') { STATE.groupSize = Number(actEl.dataset.val); renderApp(true); }
+  else if (act === 'jump-bld') { STATE.buildingId = actEl.dataset.bld; STATE.screen = 'location'; renderApp(false); }
+  else if (act === 'enter-floor') {
+    STATE.buildingId = actEl.dataset.bld || STATE.buildingId;
+    STATE.floor = Number(actEl.dataset.fl);
+    STATE.floorFilter = 'all';
+    const list = accessibleSpaces(SPACES.filter(s => s.bld === STATE.buildingId && s.floor === STATE.floor));
+    if (list.length) STATE.activeSpaceId = list[0].id;
+    STATE.selectedChair = null;
+    STATE.screen = 'occupancy';
+    renderApp(false);
+  }
+  else if (act === 'set-floor-filter') { STATE.floorFilter = actEl.dataset.val; renderApp(true); }
+  else if (act === 'select-space') { STATE.activeSpaceId = actEl.dataset.sp; STATE.selectedChair = null; renderApp(true); }
+  else if (act === 'pick-chair') {
+    const { sp, ch, code } = actEl.dataset;
+    STATE.selectedChair = (STATE.selectedChair && STATE.selectedChair.chairId === ch) ? null : { spaceId: sp, chairId: ch, code };
+    renderApp(true);
+  }
+  else if (act === 'open-details') { STATE.activeSpaceId = actEl.dataset.sp; STATE.screen = 'details'; renderApp(false); }
+  else if (act === 'set-slot') { STATE.timeSlot = actEl.dataset.val; renderApp(true); }
+  else if (act === 'proceed-final') {
+    const sp = getSpace(STATE.activeSpaceId);
+    const bld = getBuilding(sp.bld);
+    const prof = getProfile();
+    const chair = STATE.selectedChair && STATE.selectedChair.spaceId === sp.id
+      ? sp.chairs.find(c => c.id === STATE.selectedChair.chairId)
+      : sp.chairs.find(c => c.status === 'vacant');
+    if (!chair || chair.status !== 'vacant') {
+      showToast('Select a Vacant Chair', 'Please pick a green vacant chair first.', 'amber');
+      return;
+    }
+    STATE.lastPass = {
+      bookingId: 'LPU-' + Math.floor(1000 + Math.random() * 9000),
+      userName: prof.name,
+      userId: prof.idNumber,
+      buildingId: bld.id,
+      buildingName: bld.name,
+      block: bld.block,
+      floor: sp.floor,
+      spaceId: sp.id,
+      spaceName: sp.name,
+      chairId: chair.id,
+      chairCode: chair.code,
+      slot: STATE.timeSlot,
+      date: fmtDate(TODAY),
+      noise: sp.noise,
+      facilities: sp.facilities
+    };
+    STATE.screen = 'final';
+    renderApp(false);
+  }
+  else if (act === 'save-pass') {
+    const pass = STATE.lastPass;
+    if (!pass) return;
+    const sp = getSpace(pass.spaceId);
+    const ch = sp.chairs.find(c => c.id === pass.chairId);
+    if (ch) ch.status = 'mine';
+    if (!STATE.bookings.some(b => b.bookingId === pass.bookingId)) {
+      STATE.bookings.unshift(pass);
+    }
+    STATE.selectedChair = null;
+    showToast(`Seat ${pass.chairCode} Saved!`, `${pass.spaceName} added to your Profile & Reminders.`, 'green');
+    renderApp(true);
+  }
+  else if (act === 'add-study-rem') {
+    const pass = STATE.lastPass || STATE.bookings[0];
+    if (!pass) return;
+    STATE.customReminders.unshift({
+      id: 'rem-' + Date.now(),
+      title: `Study session at ${pass.spaceName} (Seat ${pass.chairCode}, ${pass.buildingName})`,
+      category: 'Study Session',
+      when: pass.slot,
+      done: false
+    });
+    showToast('Study Reminder Added!', 'View it anytime under Books & Reminders.', 'teal');
+    renderApp(true);
+  }
+  else if (act === 'copy-pass') {
+    const pass = STATE.lastPass || STATE.bookings[0];
+    if (!pass) return;
+    copyText(`A Seat to Study (LPU Demo Pass)\nPass: ${pass.bookingId}\nSpace: ${pass.spaceName} — Seat ${pass.chairCode}\nLocation: ${pass.buildingName} (${pass.block}), Floor ${pass.floor}\nSlot: ${pass.slot}\nFacilities: ${pass.facilities.join(', ')}`);
+  }
+  else if (act === 'view-pass') {
+    const found = STATE.bookings.find(b => b.bookingId === actEl.dataset.id);
+    if (found) { STATE.lastPass = found; STATE.screen = 'final'; renderApp(false); }
+  }
+  else if (act === 'cancel-pass') {
+    const id = actEl.dataset.id;
+    const idx = STATE.bookings.findIndex(b => b.bookingId === id);
+    if (idx >= 0) {
+      const bk = STATE.bookings[idx];
+      const sp = getSpace(bk.spaceId);
+      const ch = sp.chairs.find(c => c.id === bk.chairId);
+      if (ch) ch.status = 'vacant';
+      STATE.bookings.splice(idx, 1);
+      if (STATE.lastPass && STATE.lastPass.bookingId === id) STATE.lastPass = STATE.bookings[0] || null;
+      showToast('Booking Cancelled', `Seat ${bk.chairCode} is now vacant and green again.`, 'amber');
+      renderApp(true);
+    }
+  }
+  else if (act === 'refresh-demo') {
+    SPACES.forEach(sp => {
+      sp.chairs.forEach(ch => {
+        if (ch.status !== 'mine' && Math.random() < 0.16) {
+          ch.status = ch.status === 'vacant' ? 'booked' : 'vacant';
+        }
+      });
+    });
+    STATE.lastRefreshed = fmtTimeNow();
+    STATE.selectedChair = null;
+    showToast('Demo Occupancy Refreshed', `Updated sample chair counts at ${STATE.lastRefreshed}.`, 'teal');
+    renderApp(true);
+  }
+  else if (act === 'renew-book') {
+    const bk = STATE.books.find(b => b.id === actEl.dataset.bk);
+    if (bk) {
+      bk.dueOffset = Math.max(bk.dueOffset, 0) + 7;
+      showToast('Book Renewed (+7 Days)', `${bk.title} is now due ${fmtShortDate(addDays(bk.dueOffset))}.`, 'green');
+      renderApp(true);
+    }
+  }
+  else if (act === 'open-pay-modal') {
+    STATE.paymentModalBookId = actEl.dataset.bk;
+    renderModal();
+  }
+  else if (act === 'close-pay-modal') {
+    STATE.paymentModalBookId = null;
+    renderModal();
+  }
+  else if (act === 'set-pay-method') {
+    STATE.paymentMethod = actEl.dataset.val;
+    renderModal();
+  }
+  else if (act === 'confirm-pay-fine') {
+    const bk = STATE.books.find(b => b.id === actEl.dataset.bk);
+    if (bk) {
+      const paidAmt = getBookFine(bk);
+      bk.finePaid = true;
+      STATE.paymentModalBookId = null;
+      showToast(`Fine Paid (₹${paidAmt})`, `Settled via ${STATE.paymentMethod}. Renewal is now unlocked!`, 'green');
+      renderApp(true);
+    }
+  }
+  else if (act === 'quick-book-rem') {
+    const bk = STATE.books.find(b => b.id === actEl.dataset.bk);
+    if (bk) {
+      STATE.customReminders.unshift({
+        id: 'rem-' + Date.now(),
+        title: `Return or renew "${bk.title}" (${bk.callNo})`,
+        category: 'Book Due',
+        when: `Due ${fmtShortDate(addDays(bk.dueOffset))}`,
+        done: false
+      });
+      showToast('Book Reminder Set', `Added alert for ${bk.title}.`, 'teal');
+      renderApp(true);
+    }
+  }
+  else if (act === 'dismiss-rem') {
+    const id = actEl.dataset.id;
+    if (actEl.dataset.auto === 'true') {
+      STATE.dismissedAutoIds.push(id);
+    } else {
+      const found = STATE.customReminders.find(r => r.id === id);
+      if (found) found.done = true;
+    }
+    showToast('Reminder Marked Done', '', 'green');
+    renderApp(true);
+  }
+  else if (act === 'toggle-channel') {
+    const ch = actEl.dataset.ch;
+    STATE.channels[ch] = !STATE.channels[ch];
+    showToast(`${ch.toUpperCase()} Alerts ${STATE.channels[ch] ? 'Enabled' : 'Paused'}`, 'Demo preference updated.', 'teal');
+    renderApp(true);
+  }
+  else if (act === 'select-cal-day') {
+    STATE.selectedCalDay = Number(actEl.dataset.day);
+    renderApp(true);
+  }
+  else if (act === 'save-prefs') {
+    const p = PROFILES[STATE.role];
+    const m = document.getElementById('pref-mode');
+    const b = document.getElementById('pref-bld');
+    const n = document.getElementById('pref-noise');
+    if (m) { p.defaultMode = m.value; STATE.mode = m.value; }
+    if (b) { p.defaultBuilding = b.value; STATE.buildingId = b.value; }
+    if (n) { p.defaultNoise = n.value; STATE.noise = n.value; }
+    showToast('Preferences Saved', `Defaults updated for ${p.name}.`, 'green');
+  }
+  else if (act === 'toggle-task') {
+    const id = actEl.dataset.id;
+    STATE.completedTasks = STATE.completedTasks.includes(id)
+      ? STATE.completedTasks.filter(x => x !== id)
+      : [...STATE.completedTasks, id];
+    renderApp(true);
+  }
+});
+
+document.addEventListener('submit', (e) => {
+  if (e.target.id === 'add-reminder-form') {
+    e.preventDefault();
+    const title = document.getElementById('rem-title').value.trim();
+    const cat = document.getElementById('rem-cat').value;
+    const rawWhen = document.getElementById('rem-when').value;
+    if (!title) return;
+    const whenText = rawWhen ? new Date(rawWhen).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : fmtShortDate(TODAY);
+    STATE.customReminders.unshift({ id: 'rem-' + Date.now(), title, category: cat, when: whenText, done: false });
+    showToast('Custom Reminder Added', `${cat} • ${whenText}`, 'green');
+    renderApp(true);
+  }
+  else if (e.target.id === 'quick-search-form') {
+    e.preventDefault();
+    const q = document.getElementById('quick-search-input').value.trim().toLowerCase();
+    STATE.searchQuery = q;
+    if (!q) return;
+    const sp = accessibleSpaces(SPACES).find(s => s.name.toLowerCase().includes(q));
+    if (sp) {
+      STATE.buildingId = sp.bld;
+      STATE.floor = sp.floor;
+      STATE.activeSpaceId = sp.id;
+      STATE.screen = 'details';
+      showToast(`Opened ${sp.name}`, `${getBuilding(sp.bld).name}, Floor ${sp.floor}`, 'teal');
+      renderApp(false);
+      return;
+    }
+    const bk = STATE.books.find(b => b.title.toLowerCase().includes(q));
+    if (bk) {
+      STATE.screen = 'books';
+      showToast(`Found Book`, bk.title, 'teal');
+      renderApp(false);
+      return;
+    }
+    showToast('No Exact Match', 'Try searching "Reading", "Pods", or "Algorithms".', 'amber');
+  }
+});
+
+renderApp(true);
+</script>
+</body>
+</html>
